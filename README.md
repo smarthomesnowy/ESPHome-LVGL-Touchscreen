@@ -51,6 +51,7 @@ A good layout tip is to make a photoshop or gimp file of the same size as the di
 ### LVGL 
 LVGL uses a structure of Pages - Widgets - Objects to display things, if you look at any example of LVGL code you will see the structure over and over.
 You will run into a lot of indentation problems while making LVGL pages so remember to highlight lines u need to move then use TAB and SHIFT TAB or [ and ] with SHIFT to move around blocks of code to get them in the right place
+```yaml
 
 pages:
   - id: main_page
@@ -67,33 +68,39 @@ pages:
             - label:
             - button:
 
+```
+
 That code would make two different pages with a label and a button on it. It would render these widgets in the default styles, you can define styling for anything in a style definition block or style it directly on the page/widget/object.
 
 I found using the inbuilt grid layout system the best way to get things aligned with each other and in the right place, by editing the x: y: coords of the obj: the grid is sitting in you can move grids around.
 
 In LVGL if you want to display an onboard sensor or one from Home Assistant you have to also update the LVGL label for that sensor.
 
-  - platform: homeassistant
-    id: shelf_temperature
-    entity_id: sensor.shelf_sensors_temperature
-    on_value:
-      - lvgl.label.update:
-          id: livingroom_temp_label
-          text:
-            format: "%.0f°C"
-            args: [x]
+```yaml
+    - platform: homeassistant
+        id: shelf_temperature
+        entity_id: sensor.shelf_sensors_temperature
+        on_value:
+        - lvgl.label.update:
+            id: livingroom_temp_label
+            text:
+                format: "%.0f°C"
+                args: [x]
+```
 
 So this will pull the temperature from a Home Assistant sensor (actually on another ESPHome node) and then update the label: livingroom_temp_label - for labels I added _label to the sensor id to make the label: id.
 The text: block is just telling LVGL the formatting of the output, make it to 0 decimal places so it rounds up and down to the next degree.
 
 So after the sensor is made and a new label id made and the code inplace for updating it if it changes, we need to make a label to be able to display it.
 
+```yaml
     - label:
         id: livingroom_temp_label
         align: CENTER
         text_align: CENTER
         text_color: my_blue
         text_font: robo_25
+```
 
 This will display the temperature in the living room in the center of the screen with the text aligned to the center so there is an equal distance to the edge on both sides, the font is Roboto size 25px and light blue in colour. The fonts and colours are defined in their own yaml files.
 
