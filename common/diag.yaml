@@ -1,0 +1,86 @@
+sensor:
+
+  - platform: wifi_signal
+    name: ${friendly_name} Wifi Signal
+    update_interval: 320s    
+    id: wifisignal
+    icon: mdi:wifi-sync
+    web_server_sorting_weight: 4
+
+
+  - platform: copy
+    source_id: wifisignal
+    name: "WiFi Signal Percent"
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "%"
+    icon: mdi:wifi-sync
+    web_server_sorting_weight: 5
+    
+  - platform: uptime
+    name: ${friendly_name} Uptime
+    id: uptime_sensor
+    update_interval: 330s
+    on_raw_value:
+      then:
+        - text_sensor.template.publish:
+            id: uptime_secs
+            state: !lambda |-
+              int seconds = round(id(uptime_sensor).raw_state);
+              int days = seconds / (24 * 3600);
+              seconds = seconds % (24 * 3600);
+              int hours = seconds / 3600;
+              seconds = seconds % 3600;
+              int minutes = seconds /  60;
+              seconds = seconds % 60;
+              return (
+                (days ? to_string(days) + "d " : "") +
+                (hours ? to_string(hours) + "h " : "") +
+                (minutes ? to_string(minutes) + "m " : "") +
+                (to_string(seconds) + "s")
+              ).c_str();
+    web_server_sorting_weight: 6  
+
+text_sensor:
+
+  - platform: version
+    name: ${friendly_name} Version
+    web_server_sorting_weight: 7
+
+  - platform: template
+    name: ${friendly_name} Uptime in seconds
+    id: uptime_secs
+    icon: mdi:clock-start    
+    web_server_sorting_weight: 8
+
+  - platform: wifi_info
+    ip_address:
+      name: ${friendly_name} IP
+      icon: mdi:ip
+      web_server_sorting_weight: 1
+
+    ssid:
+      name: ${friendly_name} SSID
+      icon: mdi:spider-web
+      web_server_sorting_weight: 2
+
+#    bssid:
+#      name: ${friendly_name} BSSID
+    mac_address:
+      name: ${friendly_name} Mac  
+      icon: mdi:wifi-plus
+      web_server_sorting_weight: 9
+
+binary_sensor:
+
+  # Reports if this device is Connected or not
+  - platform: status
+    name: ${friendly_name} Status
+    icon: mdi:wifi-alert  
+    web_server_sorting_weight: 3
+
+switch:
+  - platform: restart
+    name: ${friendly_name} Reboot
+
+ 

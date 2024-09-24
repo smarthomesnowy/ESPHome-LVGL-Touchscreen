@@ -1,0 +1,23 @@
+ 
+# OTA flashing
+ota:
+  - platform: esphome
+
+# Enabling the logging component
+logger:
+  level: DEBUG
+  logs:
+    display.component: ERROR
+
+# Enable Home Assistant API
+api:
+
+# Enable the captive portal
+captive_portal:
+
+# Enable the Web Server component 
+web_server:
+  port: 80
+  # css_url: ""
+  # js_url: http://homeassistant.local:8123/local/www.js
+  version: 3

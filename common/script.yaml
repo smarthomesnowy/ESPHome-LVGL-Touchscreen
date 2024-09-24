@@ -1,0 +1,32 @@
+- id: time_update
+  then:
+    - lvgl.label.update:
+        id: display_time
+        text: !lambda |-
+          static char time_buf[16];
+          auto now = id(esptime).now();            
+          snprintf(time_buf, sizeof(time_buf), "%02d:%02d", now.hour, now.minute);
+          return time_buf;
+          
+    - lvgl.label.update:
+        id: bigtime_label
+        text: !lambda |-
+          static char time_buf[16];
+          auto now = id(bigtime).now();            
+          snprintf(time_buf, sizeof(time_buf), "%02d:%02d", now.hour, now.minute);
+          return time_buf;
+
+    - lvgl.label.update:
+        id: date_label
+        text: !lambda |-
+          static const char * const mon_names[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+          static char date_buf[14];
+          auto now = id(esptime).now();
+          snprintf(date_buf, sizeof(date_buf), "%s %2d", mon_names[now.month-1], now.day_of_month);
+          return date_buf;
+
+    - lvgl.label.update:
+        id: day_label
+        text: !lambda |-
+          static const char * const day_names[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+          return day_names[id(esptime).now().day_of_week-1];

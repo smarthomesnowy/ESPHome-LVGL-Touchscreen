@@ -1,0 +1,56 @@
+color:
+  - id: my_red
+    hex: e00202
+  - id: my_yellow
+    hex: dce002
+  - id: my_orange
+    hex: E0610E
+  - id: my_green
+    hex: 2aeb1c
+  - id: my_blue
+    hex: 05CDDA
+  - id: my_pink
+    hex: f50796
+  - id: my_white
+    red: 100%
+    green: 100%
+    blue: 100%
+  - id: my_black
+    red: 0%
+    green: 0%
+    blue: 0%
+  - id: my_claret
+    hex: 7a003b
+  - id: color_black
+    hex: 0d0d0d
+  - id: color_dark_gray
+    hex: 333333
+  - id: color_gray
+    hex: 666666
+  - id: color_white
+    hex: f2f0eb
+  - id: color_red
+    hex: ff0000
+  - id: color_crimson
+    hex: f5075c
+  - id: color_blue
+    hex: 2fc0ff
+  - id: color_yellow
+    hex: e7c12c
+  - id: color_amber
+    hex: f4a900
+  - id: color_mint
+    hex: 39d19c
+  - id: color_green
+    hex: 00ff00
+  - id: color_orange
+    hex: ff6633
+  - id: color_deep_orange
+    hex: ff6600
+  - id: color_violet
+    hex: 9670d6
+  - id: color_dark_blue
+    hex: 4867aa
+  - id: color_papaya
+    hex: FF8000
+    

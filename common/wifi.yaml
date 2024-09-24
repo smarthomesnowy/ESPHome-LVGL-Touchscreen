@@ -1,0 +1,12 @@
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  fast_connect: true
+  manual_ip: 
+    gateway: !secret wifi_gateway  
+    subnet: !secret wifi_subnet
+    dns1: !secret dns1
+    dns2: !secret dns2
+  ap:
+    ssid: " ${friendly_name} HS"
+    password: !secret wifi_password

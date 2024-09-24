@@ -1,0 +1,146 @@
+font:
+
+ 
+- file: "fonts/Roboto-Medium.ttf"
+  id: robo_25
+  size: 25
+  bpp: 4
+- file: "fonts/Roboto-Medium.ttf"
+  id: robo_30
+  size: 30
+  bpp: 4
+- file: "fonts/Roboto-Medium.ttf"
+  id: robo_35
+  size: 35
+  bpp: 4
+- file: "fonts/Roboto-Medium.ttf"
+  id: robo_40
+  size: 40
+  bpp: 4 
+- file: "fonts/Roboto-Medium.ttf"
+  id: robo_60
+  size: 60
+  bpp: 4 
+- file: "fonts/Roboto-Medium.ttf"
+  id: robo_50
+  size: 50
+  bpp: 4  
+
+- file: "fonts/PennStation.ttf"
+  id: pennstation_65
+  size: 65
+  bpp: 8
+  glyphs: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, c, C, ':', '.', '°', '-']    
+
+
+- file: "fonts/Icons.ttf"
+  id: icons_48
+  size: 48
+  bpp: 4
+  glyphs: [
+    "\U0000e900",
+    "\U0000e901",
+    "\U0000e902",
+    "\U0000e903",
+    "\U0000e904",
+    "\U0000e905",
+    "\U0000e906",
+    "\U0000e907",
+    "\U0000e908",
+    "\U0000e909",
+    "\U0000e90a",
+    "\U0000e90b",
+    "\U0000e90c",
+    "\U0000e90d",
+    "\U0000e90e",
+    "\U0000e90f",
+    "\U0000e910",
+    "\U0000e911",
+    "\U0000e912",
+    "\U0000e913",
+    "\U0000e914",
+    "\U0000e915",
+    "\U0000e916",
+    "\U0000e917",
+    "\U0000e918",
+    "\U0000e919",
+    ]
+
+- file: "fonts/Roboto-Medium.ttf"
+  id: roboto_icons_30
+  size: 30
+  bpp: 4
+  extras:
+    - file: "fonts/materialdesignicons-webfont.ttf"
+      glyphs: [
+        "\U000F02D1", # mdi-heart
+        "\U000F05D4", # mdi-airplane-landing
+        "\U000F0734", # right
+        "\U000F0731", # left
+        "\U000F07D0", # home        
+        "\U000F05A9", # mdi-airplane-landing
+        "\U0000E915", # temp  
+        "\U000F1119", # motion tower
+        "\U000F0D91", # motion man
+        "\U000F1435", # motion man off
+#        "\U000F0335", # mdi-lightbulb
+#        "\U000F0336", # mdi-lightbulb-outline
+        "\U000F007A", # mdi-battery-10
+        "\U000F007B", # mdi-battery-20
+        "\U000F007C", # mdi-battery-30
+        "\U000F007D", # mdi-battery-40
+        "\U000F007E", # mdi-battery-50
+        "\U000F007F", # mdi-battery-60
+        "\U000F0080", # mdi-battery-70
+        "\U000F0081", # mdi-battery-80
+        "\U000F0082", # mdi-battery-90
+        "\U000F0079", # mdi-battery (full)
+        "\U000F008E", # mdi-battery-outline
+        "\U000F0091", # mdi-battery-unknown        
+        "\U000F0335", # mdi-lightbulb
+        "\U000F0336", # mdi-lightbulb-outline
+        "\U000F0928", # wifi signal from 100% to 75% or disable
+        "\U000F0925", # wifi signal from 75% to 50%
+        "\U000F0922", # wifi signal from 50% to 25%
+        "\U000F091F", # wifi signal from 25% to 1%                     
+        ]
+
+- file: "fonts/Roboto-Medium.ttf"
+  id: roboto_icons_24
+  size: 24
+  bpp: 4
+  extras:
+    - file: "fonts/materialdesignicons-webfont.ttf"
+      glyphs: [
+        "\U000F02D1", # mdi-heart
+        "\U000F05D4", # mdi-airplane-landing
+        "\U000F0734", # right
+        "\U000F0731", # left
+        "\U000F07D0", # home        
+        "\U000F05A9", # mdi-airplane-landing
+        "\U0000E911", # wifi
+        "\U0000E915", # temp
+        ]
+
+- file: "fonts/Roboto-Medium.ttf"
+  id: roboto_icons_48
+  size: 45
+  bpp: 4
+  extras:
+    - file: "fonts/materialdesignicons-webfont.ttf"
+      glyphs: [
+        "\U000F02D1", # mdi-heart
+        "\U000F07D0", # home        
+        "\U0000E911", # wifi  
+        "\U000F0210", # fan
+        "\U000F1802", # lights
+        "\U000F07CE", # headphones
+        "\U000F0734", # arrow right
+        "\U000F0731", # arrow left
+        "\U000F0335", # mdi-lightbulb
+        "\U000F0336", # mdi-lightbulb-outline
+        "\U000F0928", # wifi signal from 100% to 75% or disable
+        "\U000F0925", # wifi signal from 75% to 50%
+        "\U000F0922", # wifi signal from 50% to 25%
+        "\U000F091F", # wifi signal from 25% to 1%
+        ]

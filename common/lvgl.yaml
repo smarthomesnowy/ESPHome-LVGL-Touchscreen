@@ -1,0 +1,1360 @@
+lvgl:
+  on_idle:
+    timeout: !lambda "return (id(display_timeout).state * 10000);"
+    then:
+      - logger.log: "LVGL is idle"
+      - light.turn_off: back_light
+      - lvgl.pause:
+  touchscreens:
+     - vnc_touchscreen
+
+     - my_touchscreen
+
+  displays:
+     - my_display
+     - vnc_display
+######################################################
+#                      THEME                         #
+#                                                    #
+######################################################
+  theme:
+    label:
+      text_font: roboto_icons_30
+    buttonmatrix:
+      bg_opa: TRANSP
+      border_width: 0
+      text_color: 0xFFFFFF
+      pad_all: 0
+      items:
+        bg_opa: TRANSP
+        border_width: 1
+        text_color: 0xFFFFFF
+        text_font: roboto_icons_30
+        pressed:
+          bg_color: 0x006699
+          bg_grad_color: 0x00334d
+        checked:
+          bg_color: 0x1d5f96
+          bg_grad_color: 0x03324A
+          text_color: 0x005580
+
+    switch:
+      bg_color: 0xC0C0C0
+      bg_grad_color: 0xb0b0b0
+      bg_grad_dir: VER
+      bg_opa: COVER
+      checked:
+        bg_color: 0x1d5f96
+        bg_grad_color: 0x03324A
+        bg_grad_dir: VER
+        bg_opa: COVER
+
+      knob:
+        bg_color: 0xFFFFFF
+        bg_grad_color: 0xC0C0C0
+        bg_grad_dir: VER
+        bg_opa: COVER
+
+    slider:
+      border_width: 1
+      border_opa: 15%
+      bg_color: 0xcccaca
+      bg_opa: 15%
+      indicator:
+        bg_color: 0x1d5f96
+        bg_grad_color: 0x03324A
+        bg_grad_dir: VER
+        bg_opa: COVER
+
+      knob:
+        bg_color: 0x2F8CD8
+        bg_grad_color: 0x005782
+        bg_grad_dir: VER
+        bg_opa: COVER
+        border_color: 0x0077b3
+        border_width: 1
+        text_color: 0xFFFFFF
+
+  style_definitions:
+    - id: header_footer
+      bg_opa: TRANSP
+      border_opa: TRANSP
+      radius: 0
+      text_color: my_blue
+      width: 100%
+      height: 32
+
+    - id: home_page
+      bg_opa: TRANSP
+      border_opa: TRANSP
+      radius: 0
+      text_color: 0xFFFFFF
+      width: 100%
+      height: 100%
+
+    - id: controls_page
+      bg_opa: TRANSP
+      border_opa: TRANSP
+      radius: 0
+      text_color: 0xFFFFFF
+      width: 100%
+      height: 100%
+
+    - id: villa_page
+      bg_opa: TRANSP
+      border_opa: TRANSP
+      radius: 0
+      text_color: 0xFFFFFF
+      width: 100%
+      height: 100%
+
+    - id: ajax_page
+      bg_opa: TRANSP
+      border_opa: TRANSP
+      radius: 0
+      text_color: 0xFFFFFF
+      width: 100%
+      height: 100%
+
+    - id: f1_page
+      bg_opa: TRANSP
+      border_opa: TRANSP
+      radius: 0
+      text_color: 0xFFFFFF
+      width: 100%
+      height: 100%
+######################################################
+#                      NAV BAR                       #
+#                                                    #
+######################################################
+  top_layer:
+    widgets:
+      - obj:
+          bg_opa: TRANSP
+          border_opa: TRANSP
+          width: 470
+          height: 90
+          align: BOTTOM_MID
+          layout:
+            pad_row: 5
+            pad_column: 5
+            type: GRID
+            grid_columns: [FR(1), FR(1), FR(1), FR(1), FR(1), FR(1), FR(1)]
+            grid_rows: [FR(1)]
+          widgets:
+            - button:
+                on_press:
+                  then:
+                    lvgl.page.previous:
+                pressed:
+                  bg_color: color_black
+                  bg_grad_color: 0x00334d
+                  text_color: my_blue
+                bg_color: color_black
+                shadow_color: color_crimson
+                shadow_spread: 2
+                shadow_width: 25
+                shadow_opa: 100%
+                grid_cell_column_pos: 0
+                grid_cell_row_pos: 0
+                grid_cell_x_align: STRETCH
+                grid_cell_y_align: STRETCH
+                widgets:
+                  - label:
+                      align: CENTER
+                      text_font: roboto_icons_48
+                      text_color: color_crimson
+                      text: "${left}"
+
+            - button:
+                id: remote_deskfan_btn
+                checkable: true
+                checked:
+                  bg_color: color_black
+                  text_color: my_blue
+                bg_color: color_black
+                shadow_color: my_blue
+                shadow_spread: 2
+                shadow_width: 25
+                shadow_opa: 100%
+                grid_cell_column_pos: 1
+                grid_cell_row_pos: 0
+                grid_cell_x_align: STRETCH
+                grid_cell_y_align: STRETCH
+                widgets:
+                  - label:
+                      align: CENTER
+                      text_font: roboto_icons_48
+                      text_color: my_blue
+                      text: "${fan}"
+                on_click:
+                  - homeassistant.action:
+                      action: switch.toggle
+                      data:
+                        entity_id: switch.desk_fan      
+
+            - button:
+                id: remote_bigfan_btn
+                checkable: true
+                checked:
+                  bg_color: color_black
+                  text_color: my_blue
+                bg_color: color_black
+                shadow_color: color_orange
+                shadow_spread: 2
+                shadow_width: 25
+                shadow_opa: 100%
+                grid_cell_column_pos: 2
+                grid_cell_row_pos: 0
+                grid_cell_x_align: STRETCH
+                grid_cell_y_align: STRETCH
+                widgets:
+                  - label:
+                      align: CENTER
+                      text_font: roboto_icons_48
+                      text_color: color_orange
+                      text: "${fan}"
+                on_click:
+                  - homeassistant.action:
+                      action: switch.toggle
+                      data:
+                        entity_id: switch.powerplug1_power      
+
+            - button:
+                on_press:
+                  then:
+                    lvgl.page.show: main_page
+                on_long_press:
+                  then:
+                    lvgl.page.show: controls_mainpage
+                #checkable: true
+                bg_color: color_black
+                shadow_color: my_blue
+                shadow_spread: 2
+                shadow_width: 25
+                shadow_opa: 100%
+                grid_cell_column_pos: 3
+                grid_cell_row_pos: 0
+                grid_cell_x_align: STRETCH
+                grid_cell_y_align: STRETCH
+                widgets:
+                  - label:
+                      align: CENTER
+                      text_font: roboto_icons_48
+                      text_color: my_blue
+                      text: "${homes}"
+
+            - button:
+                id: all_light_btn
+                on_click:
+                  - homeassistant.action:
+                      action: light.toggle
+                      data:
+                        entity_id: light.all_lights
+                checkable: true
+                checked:
+                  bg_color: color_black
+                  text_color: my_blue
+                bg_color: color_black
+                shadow_color: color_violet
+                shadow_spread: 2
+                shadow_width: 25
+                shadow_opa: 100%
+                grid_cell_column_pos: 4
+                grid_cell_row_pos: 0
+                grid_cell_x_align: STRETCH
+                grid_cell_y_align: STRETCH
+                widgets:
+                  - label:
+                      align: CENTER
+                      text_font: roboto_icons_48
+                      text_color: color_violet
+                      text: "${light}"
+
+            - button:
+                checkable: true
+                bg_color: color_black
+                shadow_color: my_blue
+                shadow_spread: 2
+                shadow_width: 25
+                shadow_opa: 100%
+                grid_cell_column_pos: 5
+                grid_cell_row_pos: 0
+                grid_cell_x_align: STRETCH
+                grid_cell_y_align: STRETCH
+                widgets:
+                  - label:
+                      align: CENTER
+                      text_font: roboto_icons_48
+                      text_color: my_blue
+                      text: "${headphones}"
+
+            - button:
+                on_press:
+                  then:
+                    lvgl.page.next:
+                bg_color: color_black
+                shadow_color: color_crimson
+                shadow_spread: 2
+                shadow_width: 25
+                shadow_opa: 100%
+                grid_cell_column_pos: 6
+                grid_cell_row_pos: 0
+                grid_cell_x_align: STRETCH
+                grid_cell_y_align: STRETCH
+                widgets:
+                  - label:
+                      align: CENTER
+                      text_font: roboto_icons_48
+                      text_color: color_crimson
+                      text: "${right}"
+######################################################
+#                     Boot Screen                    #
+#                                                    #
+######################################################
+      - obj:
+          id: boot_screen
+          x: 0
+          y: 0
+          width: 100%
+          height: 100%
+          bg_image_src: neonpink
+          bg_opa: COVER
+          radius: 0
+          pad_all: 0
+          border_width: 0
+          widgets:
+            - image:
+                align: CENTER
+                src: boot_logo
+                y: -40
+            - spinner:
+                align: CENTER
+                y: 95
+                height: 50
+                width: 50
+                spin_time: 1s
+                arc_length: 60deg
+                arc_width: 8
+                indicator:
+                  arc_color: 0x18bcf2
+                  arc_width: 8
+          on_press:
+            - lvgl.widget.hide: boot_screen
+######################################################
+#                    TOPLINE                         #
+#                                                    #
+######################################################
+# TIME
+      - obj:
+          y: -20
+          align: TOP_MID
+          height: 55
+          bg_opa: TRANSP
+          border_opa: TRANSP
+          widgets:
+            - label:
+                id: display_time
+                align: TOP_MID
+                text_align: CENTER
+                text_font: roboto_icons_30
+                text_color: my_blue
+                text: "Booting Up"
+
+      - obj:
+          y: -20
+          align: TOP_RIGHT
+          width: 150
+          height: 55
+          bg_opa: TRANSP
+          border_opa: TRANSP
+          layout:
+            pad_row: 10
+            pad_column: 5
+            type: GRID
+            grid_columns: [FR(1), FR(1), FR(1)]
+            grid_rows: [FR(1)]
+          widgets:
+
+# HA API STATE
+            - label:
+                text: "\U000F07D0"
+                id: lbl_hastatus
+                hidden: true
+                align: top_right
+                x: -05
+                text_align: right
+                text_color: my_blue
+                grid_cell_column_pos: 1
+                grid_cell_row_pos: 0
+                grid_cell_x_align: STRETCH
+                grid_cell_y_align: STRETCH
+
+# WIFI
+            - label:
+                id: wifi_status
+                align: TOP_RIGHT
+                x: -50
+                y: -3
+                text: "${wifi_100}"
+                text_color: color_dark_gray
+                text_font: roboto_icons_30
+                grid_cell_column_pos: 0
+                grid_cell_row_pos: 0
+                grid_cell_x_align: STRETCH
+                grid_cell_y_align: STRETCH
+
+#Moto Battery               
+            - label:
+                id: moto_battery_label
+                align: TOP_RIGHT
+                y: 40
+                x: -10
+                text_font: roboto_icons_30
+                text_color: my_pink
+                text: "\U000F0091"
+                grid_cell_column_pos: 2
+                grid_cell_row_pos: 0
+                grid_cell_x_align: STRETCH
+                grid_cell_y_align: STRETCH
+
+# LEFT TOP GRID
+      - obj:
+          x: -05
+          y: -20
+          align: TOP_LEFT
+          width: 180
+          height: 55
+          bg_opa: TRANSP
+          border_opa: TRANSP
+          layout:
+            pad_row: 1
+            pad_column: 3
+            type: GRID
+            grid_columns: [FR(1), FR(1), FR(1)]
+            grid_rows: [FR(1)]
+          widgets:
+
+# temp Shelf
+            - label:
+                id: livingroom_temp_label
+                align: TOP_LEFT
+                y: 5
+                text_color: my_blue
+                text_font: robo_25
+                grid_cell_column_pos: 0
+                grid_cell_row_pos: 0
+                grid_cell_x_align: STRETCH
+                grid_cell_y_align: STRETCH
+
+# temp Workshop
+            - label:
+                id: workshop_temp_label
+                align: TOP_LEFT
+                y: 5
+                text_color: my_blue
+                text_font: robo_25
+                grid_cell_column_pos: 1
+                grid_cell_row_pos: 0 
+                grid_cell_x_align: STRETCH
+                grid_cell_y_align: STRETCH
+
+# temp bedroom
+            - label:
+                id: bedroom_temp_label
+                align: TOP_LEFT
+                y: 5
+                text_color: my_blue
+                text_font: robo_25
+                grid_cell_column_pos: 2
+                grid_cell_row_pos: 0
+                grid_cell_x_align: STRETCH
+                grid_cell_y_align: STRETCH
+
+######################################################
+#                     PAGES                          #
+#                                                    #
+######################################################
+  pages:
+######################################################
+#                    MAIN PAGE                       #
+#                                                    #
+######################################################
+    - id: main_page
+      on_load:
+        - lvgl.widget.hide: display_time
+      on_unload:
+        - lvgl.widget.show: display_time
+
+      bg_image_src: neonpink
+
+######################################################
+#                  Floating Elements                 #
+#                                                    #
+######################################################
+      widgets:
+        - line:
+            points:
+              - 361, 51
+              - 453, 51
+            line_width: 4
+            line_color: my_pink
+            line_rounded: true
+
+        - line:
+            points:
+              - 252, 132
+              - 310, 132
+            line_width: 4
+            line_color: my_pink
+            line_rounded: true
+
+        - label:
+            id: condition_label
+            x: +45
+            y: -25
+            width: 150
+            height: 40
+            long_mode: scroll_circular
+            align: LEFT_MID
+            text_align: CENTER
+            text_color: my_blue
+            text_font: robo_25
+
+######################################################
+#                    Weather Icon                    #
+#                                                    #
+######################################################
+        - obj:
+            x: 10
+            y: -23
+            align: TOP_LEFT
+            width: 160
+            height: 160
+            bg_opa: TRANSP
+            border_opa: TRANSP
+            scrollbar_mode: "OFF"
+            widgets:
+              - animimg:
+                  id: weather_rainy
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ rainy0, rainy1, rainy2, rainy3, rainy4, rainy5, rainy6, rainy7, rainy8, rainy9, rainy10, rainy11 ]
+                  duration: 1200ms
+              - animimg:
+                  id: weather_pouring
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ pouring0, pouring1, pouring2, pouring3, pouring4, pouring5, pouring6, pouring7, pouring8, pouring9, pouring10, pouring11 ]
+                  duration: 400ms
+              - animimg:
+                  id: weather_lightning_rainy
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ lightning_rainy0, rainy1, lightning_rainy1, rainy3, rainy4, rainy5, rainy6, rainy7, rainy8, rainy9, rainy10, rainy11, lightning_rainy2, rainy1, lightning_rainy3, rainy3, rainy4, rainy5, rainy6, rainy7, rainy8, rainy9, rainy10, rainy11 ]
+                  duration: 1500ms
+              - animimg:
+                  id: weather_snowy_rainy
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ snowy_rainy0, snowy_rainy1, snowy_rainy2, snowy_rainy3, snowy_rainy4, snowy_rainy5, snowy_rainy6, snowy_rainy7, snowy_rainy8, snowy_rainy9, snowy_rainy10, snowy_rainy11 ]
+
+                  duration: 1200ms
+              - animimg:
+                  id: weather_snowy
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ snowy0, snowy1, snowy2, snowy3, snowy4, snowy5, snowy6, snowy7, snowy8, snowy9, snowy10, snowy11 ]
+                  duration: 1200ms
+              - button:
+                  id: weather_sunny
+                  hidden: true
+                  pad_all: 0
+                  width: 100
+                  height: 100
+                  x: -05
+                  y: 21 
+                  bg_opa: TRANSP
+                  border_width: 0
+                  shadow_opa: TRANSP
+                  widgets:
+                    - image:
+                        src: sunny
+              - button:
+                  id: weather_clear_night
+                  hidden: true
+                  pad_all: 0
+                  width: 100
+                  height: 100
+                  x: -05
+                  y: 26 
+                  bg_opa: TRANSP
+                  border_width: 0
+                  shadow_opa: TRANSP
+                  widgets:
+                    - image:
+                        src: clear_night
+
+              - button:
+                  id: weather_clear
+                  hidden: true
+                  pad_all: 0
+                  width: 100
+                  height: 100
+                  x: -05
+                  y: 25
+                  bg_opa: TRANSP
+                  border_width: 0
+                  shadow_opa: TRANSP
+                  widgets:
+                    - image:
+                        src: clear
+              - animimg:
+                  id: weather_hail
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ hail0, hail1, hail2, hail3, hail4, hail5, hail6, hail7, hail8, hail9, hail10, hail11 ]
+                  duration: 1200ms
+              - animimg:
+                  id: weather_partlycloudy_sun
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ partlycloudy_sun0, partlycloudy_sun1, partlycloudy_sun2, partlycloudy_sun3, partlycloudy_sun4, partlycloudy_sun5, partlycloudy_sun6, partlycloudy_sun7, partlycloudy_sun6, partlycloudy_sun5, partlycloudy_sun4, partlycloudy_sun3, partlycloudy_sun2, partlycloudy_sun1 ]
+                  duration: 2600ms
+              - animimg:
+                  id: weather_partlycloudy_moon
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ partlycloudy_moon0, partlycloudy_moon1, partlycloudy_moon2, partlycloudy_moon3, partlycloudy_moon4, partlycloudy_moon5, partlycloudy_moon6, partlycloudy_moon7, partlycloudy_moon6, partlycloudy_moon5, partlycloudy_moon4, partlycloudy_moon3, partlycloudy_moon2, partlycloudy_moon1 ]
+                  duration: 2600ms
+              - animimg:
+                  id: weather_windy
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ windy0, windy1, windy2, windy3, windy2, windy1 ]
+                  duration: 1000ms
+              - animimg:
+                  id: weather_windy_variant
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ windy_variant0, windy_variant1, windy_variant2, windy_variant3, windy_variant2, windy_variant1 ]
+                  duration: 1000ms
+              - animimg:
+                  id: weather_lightning
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ lightning0, lightning1, lightning1, lightning1, lightning0, lightning1, lightning1, lightning1, lightning1, lightning1, lightning1, lightning1, lightning2, lightning3, lightning3, lightning3, lightning2, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3 ]
+                  duration: 2000ms
+              - animimg:
+                  id: weather_fog
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ fog0, fog1, fog2, fog3, fog4, fog5, fog6, fog7, fog8, fog9, fog10, fog11, fog12, fog11, fog10, fog9, fog8, fog7, fog6, fog5, fog4, fog3, fog2, fog1 ]
+                  duration: 5000ms
+              - animimg:
+                  id: weather_cloudy
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ cloudy0, cloudy1, cloudy2, cloudy3, cloudy2, cloudy1 ]
+                  duration: 600ms
+              - animimg:
+                  id: weather_partlycloudy_fog
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ fog0, fog1, fog2, fog3, fog4, fog5, fog6, fog7, fog8, fog9, fog10, fog11, fog12, fog11, fog10, fog9, fog8, fog7, fog6, fog5, fog4, fog3, fog2, fog1 ]
+                  duration: 5000ms
+              - animimg:
+                  id: weather_partlycloudy_light_rain
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ rainy0, rainy1, rainy2, rainy3, rainy4, rainy5, rainy6, rainy7, rainy8, rainy9, rainy10, rainy11 ]
+                  duration: 1500ms
+              - animimg:
+                  id: weather_partlycloudy_rain
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ rainy0, rainy1, rainy2, rainy3, rainy4, rainy5, rainy6, rainy7, rainy8, rainy9, rainy10, rainy11 ]
+                  duration: 1500ms
+              - animimg:
+                  id: weather_partlycloudy_lightning
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ lightning0, lightning1, lightning1, lightning1, lightning0, lightning1, lightning1, lightning1, lightning1, lightning1, lightning1, lightning1, lightning2, lightning3, lightning3, lightning3, lightning2, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3, lightning3 ]
+                  duration: 2000ms
+              - animimg:
+                  id: weather_partlycloudy
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ partlycloudy_sun0, partlycloudy_sun1, partlycloudy_sun2, partlycloudy_sun3, partlycloudy_sun4, partlycloudy_sun5, partlycloudy_sun6, partlycloudy_sun7, partlycloudy_sun6, partlycloudy_sun5, partlycloudy_sun4, partlycloudy_sun3, partlycloudy_sun2, partlycloudy_sun1 ]
+                  duration: 2600ms
+              - animimg:
+                  id: weather_light_rain
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ rainy0, rainy1, rainy2, rainy3, rainy4, rainy5, rainy6, rainy7, rainy8, rainy9, rainy10, rainy11 ]
+                  duration: 1200ms
+
+              - animimg:
+                  id: weather_partlycloudy_snow
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ snowy0, snowy1, snowy2, snowy3, snowy4, snowy5, snowy6, snowy7, snowy8, snowy9, snowy10, snowy11 ]
+                  duration: 1200ms
+              - animimg:
+                  id: weather_light_snow
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ snowy0, snowy1, snowy2, snowy3, snowy4, snowy5, snowy6, snowy7, snowy8, snowy9, snowy10, snowy11 ]
+                  duration: 1200ms  
+              - animimg:
+                  id: weather_partlycloudy_light_snow
+                  hidden: true
+                  x: -05
+                  y: 21 
+                  align: TOP_LEFT
+                  src: [ snowy0, snowy1, snowy2, snowy3, snowy4, snowy5, snowy6, snowy7, snowy8, snowy9, snowy10, snowy11 ]
+                  duration: 1200ms             
+######################################################
+#                      Time Grid                     #
+#                                                    #
+######################################################
+        - obj:
+            y: 16
+            align: TOP_RIGHT
+            width: 250
+            height: 200
+            bg_opa: TRANSP
+            border_opa: TRANSP
+            layout:
+              pad_row: 10
+              pad_column: 5
+              type: GRID
+              grid_columns: [FR(1)]
+              grid_rows: [FR(5), FR(10), FR(20)]
+            widgets:
+
+              - label:
+                  id: day_label
+                  text_align: LEFT
+                  text_color: my_blue
+                  text_font: robo_25
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: bigtime_label
+                  text_align: CENTER
+                  text_color: my_blue
+                  text_font: pennstation_65
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: date_label
+                  y: +3
+                  align: RIGHT_MID
+                  text_align: RIGHT
+                  text_color: my_blue
+                  text_font: robo_25
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 2
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+######################################################
+#                   Weather Grid                     #
+#                                                    #
+######################################################
+
+        - obj:
+            x: 105
+            y: 17
+            align: TOP_LEFT
+            width: 150
+            height: 100
+            bg_opa: TRANSP
+            border_opa: TRANSP
+            layout:
+              pad_row: 2
+              pad_column: 5
+              type: GRID
+              grid_columns: [FR(1)]
+              grid_rows: [FR(1), FR(1)]
+            widgets:               
+              - label:
+                  id: outside_temp_label
+                  text_align: CENTER
+                  text_color: my_blue
+                  text: "${temperature}"
+                  text_font: robo_30
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: average_insidetemp_label
+                  align: LEFT_MID
+                  text_align: CENTER
+                  text_color: my_blue
+                  text_font: robo_30
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                  text: "${temperature}"
+
+######################################################
+#                   Villa Next Game                  #
+#                                                    #
+######################################################
+        - obj:
+            x: 5
+            y: +140
+            align: TOP_LEFT
+            width: 250
+            height: 100
+            bg_opa: TRANSP
+            border_opa: TRANSP
+            layout:
+              pad_row: 2
+              pad_column: 5
+              type: GRID
+              grid_columns: [FR(1)]
+              grid_rows: [FR(1), FR(1)]
+            widgets:
+
+              - label:
+                  long_mode: SCROLL_CIRCULAR
+                  id: villa_fixture_mp_label
+                  text_align: CENTER
+                  text_color: my_blue
+                  text_font: robo_25
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: villa_matchtime_mp_label
+                  text_align: CENTER
+                  text_color: my_blue
+                  text_font: robo_25
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+######################################################
+#                   Ajax Next Game                   #
+#                                                    #
+######################################################
+        - obj:
+            x: 245
+            y: +140
+            align: TOP_LEFT
+            width: 235
+            height: 100
+            bg_opa: TRANSP
+            border_opa: TRANSP
+            layout:
+              pad_row: 2
+              pad_column: 5
+              type: GRID
+              grid_columns: [FR(1)]
+              grid_rows: [FR(1), FR(1)]
+            widgets:
+
+              - label:
+                  long_mode: SCROLL_CIRCULAR
+                  id: ajax_fixture_mp_label
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: robo_25
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: ajax_matchtime_mp_label
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: robo_25
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH          
+######################################################
+#                   VILLA PAGE                       #
+#                                                    #
+######################################################
+    - id: villa_mainpage
+      bg_image_src: vpark1
+      bg_opa: 60%
+      widgets:
+        - label:
+            id: villa_matchtime_label
+            y: +30
+            align: TOP_MID
+            text_align: CENTER
+            text_color: my_blue
+            text_font: robo_60
+
+        - obj:
+            align: CENTER
+            y: +10
+            styles: villa_page
+            width: 460
+            height: 190
+            layout:
+              pad_row: 5
+              pad_column: 5
+              type: GRID
+              grid_columns: [FR(1)]
+              grid_rows: [FR(1),FR(1),FR(1),]            
+
+            widgets:
+              - label:
+                  id: villa_fixture_label
+                  long_mode: scroll_circular
+                  y: -15
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: my_blue
+                  text_font: robo_40
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: villagame_date_label
+                  y: -90
+                  align: BOTTOM_MID
+                  text_align: CENTER
+                  text_color: my_blue
+                  text_font: robo_40
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                                      
+              - label:
+                  id: villa_location_label
+                  long_mode: scroll
+                  y: -35
+                  align: BOTTOM_MID
+                  text_align: CENTER
+                  text_color: my_blue
+                  text_font: robo_40
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 2
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                  
+######################################################
+#                   AJAX  PAGE                       #
+#                                                    #
+######################################################
+    - id: ajax_mainpage
+      bg_image_src: ajax1
+      bg_opa: 60%
+      widgets:
+        - label:
+            id: ajax_matchtime_label
+            y: +30
+            align: TOP_MID
+            text_align: CENTER
+            text_color: color_white
+            text_font: robo_60
+
+        - obj:
+            align: CENTER
+            y: +10
+            styles: ajax_page
+            width: 460
+            height: 190
+            layout:
+              pad_row: 5
+              pad_column: 5
+              type: GRID
+              grid_columns: [FR(1)]
+              grid_rows: [FR(1),FR(1),FR(1),]           
+
+            widgets:
+              - label:
+                  long_mode: scroll_circular
+                  id: ajax_fixture_label
+                  y: -15
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: robo_40
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: ajax_start_time_label
+                  y: -90
+                  align: BOTTOM_MID
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: robo_40
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                                      
+              - label:
+                  id: ajax_location_label
+                  y: -35
+                  align: BOTTOM_MID
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: robo_40
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 2
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+######################################################
+#                      F1 PAGE                       #
+#                                                    #
+######################################################
+    - id: f1_mainpage
+      bg_image_src: f1
+      bg_opa: 60%
+      widgets:
+        - label:
+            id: f1_sessiontime_date_label
+            y: +22
+            align: TOP_MID
+            text_align: CENTER
+            text_color: color_papaya
+            text_font: robo_60
+
+        - obj:
+            align: CENTER
+            y: +10
+            styles: f1_page
+            width: 460
+            height: 190
+            layout:
+              pad_row: 5
+              pad_column: 5
+              type: GRID
+              grid_columns: [FR(1)]
+              grid_rows: [FR(1),FR(1),FR(1),]             
+
+            widgets:
+              - label:
+                  id: f1_fixture_label
+                  long_mode: scroll_circular
+                  y: -15
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: color_papaya
+                  text_font: robo_40
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: f1game_date_label
+                  y: -90
+                  align: BOTTOM_MID
+                  text_align: CENTER
+                  text_color: color_papaya
+                  text_font: robo_40
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                                      
+              - label:
+                  id: f1_location_label
+                  y: -35
+                  align: BOTTOM_MID
+                  text_align: CENTER
+                  text_color: color_papaya
+                  text_font: robo_40
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 2
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+######################################################
+#                   CONTROLS PAGE                    #
+#                                                    #
+######################################################
+    - id: controls_mainpage
+      skip: true
+      bg_image_src: pinkwash
+      widgets:
+          
+        - slider:
+            id: all_lights_slider
+            x: 00
+            y: 10
+            pad_all: 5
+            min_value: 0
+            max_value: 255
+            radius: 20
+            bg_color: color_gray
+            align: CENTER
+            width: 40
+            height: 160
+            indicator:
+              bg_color: my_pink
+              radius: 20
+            knob:
+              bg_opa: TRANSP
+            on_release:
+              - homeassistant.action:
+                  action: light.turn_on
+                  data:
+                    entity_id: light.all_lights
+                    brightness: !lambda return int(x);
+        - obj:
+            align: TOP_RIGHT
+            y: +25
+            styles: f1_page
+            width: 250
+            height: 290
+            layout:
+              pad_row: 5
+              pad_column: 5
+              type: GRID
+              grid_columns: [FR(65),FR(35)]
+              grid_rows: [FR(1),FR(1),FR(1),]
+            widgets:
+
+            
+              - button:
+                  id: deathstar_light_btn
+                  #width: 135
+                  #height: 135
+                  on_click:
+                    - homeassistant.action:
+                        action: light.toggle
+                        data:
+                          entity_id: light.deathstar
+                  checkable: true
+                  checked:
+                    bg_color: color_dark_gray
+                    #bg_grad_color: 0x03324A
+                    text_color: color_violet
+                    shadow_color: my_orange
+                    shadow_spread: 3
+                  bg_color: color_black
+                  shadow_color: color_violet
+                  shadow_spread: 2
+                  shadow_width: 25
+                  shadow_opa: 100%
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                  widgets:
+                    - label:
+                        align: CENTER
+                        text_font: roboto_icons_48
+                        text_color: color_violet
+                        text: "${light}"
+                    - label:
+                        id: lbl_deathstar_light_btn
+                        align: CENTER
+                        text_font: roboto_icons_48
+                        text: "\U000F0336" # mdi-lightbulb-outline
+                  on_short_click:
+                    - homeassistant.action:
+                        action: light.toggle
+                        data:
+                          entity_id: light.deathstar
+              - label:
+                  align: CENTER
+                  text_font: robo_25
+                  text_color: color_white
+                  text: "Deathstar"
+                  text_align: RIGHT
+                  y: -30
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+            
+              - button:
+                  id: harshlight_light_btn
+                  #width: 135
+                  #height: 135
+                  on_click:
+                    - homeassistant.action:
+                        action: switch.toggle
+                        data:
+                          entity_id: switch.harsh_light
+                  checkable: true
+                  checked: # set some button colors to be different in checked state
+                    bg_color: color_dark_gray
+                    #bg_grad_color: 0x03324A
+                    text_color: color_violet
+                    shadow_color: my_orange
+                    shadow_spread: 3
+                  bg_color: color_black
+                  shadow_color: color_violet
+                  shadow_spread: 2
+                  shadow_width: 25
+                  shadow_opa: 100%
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                  widgets:
+                    - label:
+                        align: CENTER
+                        text_font: roboto_icons_48
+                        text_color: color_violet
+                        text: "${light}"
+                    - label:
+                        id: harsh_light_btn
+                        align: CENTER
+                        text_font: roboto_icons_48
+                        text: "\U000F0336" # mdi-lightbulb-outline
+                  on_short_click:
+                    - homeassistant.action:
+                        action: switch.toggle
+                        data:
+                          entity_id: switch.harsh_light
+              - label:
+                  align: CENTER
+                  text_font: robo_25
+                  text_color: color_white
+                  text: "Harsh"
+                  text_align: RIGHT
+                  y: -30
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 2
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - button:
+                  id: wled_light_btn
+                  on_click:
+                    - homeassistant.action:
+                        action: light.toggle
+                        data:
+                          entity_id: light.wled
+                  checkable: true
+                  checked:
+                    bg_color: color_dark_gray
+                    text_color: color_violet
+                    shadow_color: my_orange
+                    shadow_spread: 3
+                  bg_color: color_black
+                  shadow_color: color_violet
+                  shadow_spread: 2
+                  shadow_width: 25
+                  shadow_opa: 100%
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 2
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                  widgets:
+                    - label:
+                        align: CENTER
+                        text_font: roboto_icons_48
+                        text_color: color_violet
+                        text: "${light}"
+                    - label:
+                        id: wled_light_btn_label
+                        align: CENTER
+                        text_font: roboto_icons_48
+                        text: "\U000F0336"
+                  on_short_click:
+                    - homeassistant.action:
+                        action: light.toggle
+                        data:
+                          entity_id: light.wled
+
+              - label:
+                  align: CENTER
+                  text_font: robo_25
+                  text_color: color_white
+                  text: "WLED"
+                  text_align: RIGHT
+                  y: -30
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 2
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+######################################################
+#                   LIGHTS PAGE                      #
+#                                                    #
+######################################################
+    - id: lights_mainpage
+      skip: true
+######################################################
+#                   WEATHER PAGE                     #
+#                                                    #
+######################################################
+    - id: weather_mainpage
+      bg_image_src: pinkwash
+      widgets:
+        - obj:
+            align: CENTER
+            width: 160
+            height: 160
+            bg_opa: TRANSP
+            border_opa: TRANSP
+            widgets:

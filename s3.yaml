@@ -1,0 +1,356 @@
+substitutions:
+  name: s3
+  friendly_name: "S3"
+  settings:           "\U0000e900" # settings
+  thermostat:         "\U0000e901" # thermostat
+  lock:               "\U0000e902" # security, alarm
+  camera:             "\U0000e903" # camera
+  curtains:           "\U0000e904" # curtains
+  lights:             "\U0000e905" # lights
+  air_conditioner:    "\U0000e906" # air_conditioner
+  motion:             "\U000F1119" # motion, presence  
+  heating:            "\U0000e908" # heating
+  alarm_off:          "\U0000e909" # alarm off
+  alarm_on:           "\U0000e90a" # alarm on
+  ha:                 "\U0000e90b" # home assistant
+  color_temp:         "\U0000e90c" # color_temp
+  ventilation:        "\U0000e90d" # ventilation
+  wifi_25:            "\U000F091F" # wifi signal from 25% to 1%
+  wifi_50:            "\U000F0922" # wifi signal from 50% to 25%
+  wifi_75:            "\U000F0925" # wifi signal from 75% to 50%
+  wifi_100:           "\U000F0928" # wifi signal from 100% to 75% or disable
+  humidity:           "\U0000e912" # humidity
+  co2:                "\U0000e913" # co2
+  tvoc:               "\U0000e914" # air quality
+  temperature:        "\U0000e915" # temperature
+  illumination:       "\U0000e916" # lux
+  empty:              "\U0000e917" # placeholder
+  vacuum_cleaner:     "\U0000e918" # vacuum cleaner
+  logo:               "\U0000e919" # logo
+  fan:                "\U000F0210" # fan
+  light:              "\U000F1802" # light 
+  headphones:         "\U000F07CE" # headphones
+  right:              "\U000F0734" #  right
+  left:               "\U000F0731" # left
+  homes:              "\U000F07D0" # homersd
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  platformio_options:
+    board_build.flash_mode: dio
+#    build_flags: "-DBOARD_HAS_PSRAM"
+
+esp32:
+  board: esp32-s3-devkitc-1
+  flash_size: 16MB
+  framework:
+    type: esp-idf
+#    sdkconfig_options:
+#      CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240: "y"
+#      CONFIG_ESP32S3_DATA_CACHE_64KB: "y"
+#      CONFIG_ESP32S3_DATA_CACHE_LINE_64B: "y"
+#      CONFIG_SPIRAM_FETCH_INSTRUCTIONS: y
+#      CONFIG_SPIRAM_RODATA: y
+
+psram:
+  mode: octal
+  speed: 80MHz
+
+debug:
+  update_interval: 5s
+
+packages:
+  wifi: !include common/wifi.yaml
+  #diag: !include common/diag.yaml
+  clock-sensors: !include common/clock-sensors.yaml  
+  font: !include common/fonts.yaml
+  image: !include common/images.yaml
+  color: !include common/colours.yaml
+  lvgl: !include common/lvgl.yaml
+script: !include common/script.yaml
+
+external_components:
+#  - source: github://pr#7315
+#    components: [lvgl]
+#  - source: github://pr#7338
+#    components: [lvgl]
+#  - source: github://pr#7370
+#    components: [lvgl]
+  - source: github://clydebarrow/esphome@lvgl-fixes
+    refresh: 60min
+    components: [ lvgl ]
+
+  - source: github://clydebarrow/esphome@remote_display
+    refresh: 60min
+    components: [vnc]
+
+api:
+  encryption:
+    key: "48yBAiTRYX7Z6jFkIx5F7CoS9eiPx787G5HuFTM5eFQ="
+
+  on_client_connected:
+    - if:
+        condition:
+          lambda: 'return (0 == client_info.find("Home Assistant "));'
+        then:
+          - lvgl.widget.show: lbl_hastatus
+  on_client_disconnected:
+    - if:
+        condition:
+          lambda: 'return (0 == client_info.find("Home Assistant "));'
+        then:
+          - lvgl.widget.hide: lbl_hastatus
+
+wifi:
+   manual_ip: 
+    static_ip: !secret s3_ip
+ 
+# OTA flashing
+ota:
+  - platform: esphome
+
+# Enabling the logging component
+logger:
+  level: DEBUG
+  logs:
+    display.component: ERROR
+
+web_server:
+  port: 80
+  version: 3
+
+spi:
+  clk_pin: GPIO12 # Brown
+  mosi_pin: GPIO07 # Orange
+  miso_pin: GPIO08 # Grey
+
+touchscreen:
+  - platform: vnc
+    id: vnc_touchscreen
+    display: vnc_display
+
+  - platform: xpt2046
+    id: my_touchscreen
+    display: my_display
+    cs_pin: GPIO10 # blue
+  #  interrupt_pin: GPIO13 # white
+    threshold: 400
+    calibration:
+      x_min: 257
+      x_max: 3850
+      y_min: 224
+      y_max: 3654
+    transform:
+      swap_xy: true
+      mirror_y: true
+      #mirror_x: true
+    on_release:
+      then:
+        - if:
+            condition: lvgl.is_paused
+            then:
+              - lvgl.resume:
+              - lvgl.widget.redraw:
+              - light.turn_on: back_light
+
+#  on_touch:
+#    - lambda: |-
+#          ESP_LOGI("cal", "id=%d, x=%d, y=%d, x_raw=%d, y_raw=%0d",
+#              touch.id,
+#              touch.x,
+#              touch.y,
+#              touch.x_raw,
+#              touch.y_raw
+#              );     
+
+
+light:        
+
+  - platform: monochromatic
+    output: s3backlight
+    name: "S3 Backlight"
+    id: back_light
+    restore_mode: ALWAYS_ON
+    icon: mdi:lightbulb
+    gamma_correct: 1.8
+
+output:
+  - platform: ledc
+    pin: GPIO18 # Purple
+    id: s3backlight
+    
+
+#i2s_audio:
+#  - id: i2s_out
+#    i2s_lrclk_pin: GPIO09 #lrclk on amp
+#    i2s_bclk_pin: GPIO11 #bclk on amp
+#  - id: i2s_in
+#    i2s_lrclk_pin: GPIO16 # ws on mic
+#    i2s_bclk_pin: GPIO15 # sck on mic
+
+#microphone:
+#  - platform: i2s_audio
+#    i2s_audio_id: i2s_in
+#    id: va_mic
+#    adc_type: external
+#    i2s_din_pin: GPIO48 #sd on mic
+#    pdm: false
+#    channel: right
+
+#media_player:
+#  - platform: i2s_audio
+#    i2s_audio_id: i2s_out
+#    id: media_out
+#    name: None
+#    dac_type: external
+#    i2s_dout_pin: GPIO47 #din on amp
+#    mode: mono
+
+#speaker:
+#  - platform: i2s_audio
+#    id: ext_speaker
+#    i2s_dout_pin: GPIO47
+#    dac_type: external
+#    mode: mono
+
+# sensor:
+#  - platform: adc
+#    pin: GPIO09
+#    name: "${friendly_name} Brightness"
+#    device_class: illuminance
+#    unit_of_measurement: lx
+#    filters:
+#      - lambda: |-
+#          return (x / 10000.0) * 2000000.0;
+#    update_interval: 5s
+#    icon: mdi:white-balance-sunny
+
+  
+time:
+  - platform: homeassistant
+    id: esptime 
+    on_time:
+      - minutes: '*'
+        seconds: 0
+        then:
+          - script.execute: time_update
+      - hours: 2,3,4,5
+        minutes: 5
+        seconds: 0
+        then:
+          - switch.turn_on: switch_antiburn
+      - hours: 2,3,4,5
+        minutes: 35
+        seconds: 0
+        then:
+          - switch.turn_off: switch_antiburn
+    on_time_sync:
+      - script.execute: time_update
+
+  - platform: homeassistant
+    id: bigtime 
+    on_time:
+      - minutes: '*'
+        seconds: 0
+        then:
+          - script.execute: time_update
+      - hours: 2,3,4,5
+        minutes: 5
+        seconds: 0
+        then:
+          - switch.turn_on: switch_antiburn
+      - hours: 2,3,4,5
+        minutes: 35
+        seconds: 0
+        then:
+          - switch.turn_off: switch_antiburn
+    on_time_sync:
+      - script.execute: time_update
+
+
+
+switch:
+  - platform: template
+    name: Antiburn
+    id: switch_antiburn
+    icon: mdi:television-shimmer
+    optimistic: true
+    entity_category: "config"
+    turn_on_action:
+      - logger.log: "Starting Antiburn"
+      - if:
+          condition: lvgl.is_paused
+          then:
+            - lvgl.resume:
+            - lvgl.widget.redraw:
+            - delay: 1s
+      - lvgl.pause:
+          show_snow: true
+    turn_off_action:
+      - logger.log: "Stopping Antiburn"
+      - if:
+          condition: lvgl.is_paused
+          then:
+            - lvgl.resume:
+            - lvgl.widget.redraw:
+            - delay: 1s
+            - lvgl.pause:
+
+number:
+  - platform: template
+    name: Screen timeout
+    optimistic: true
+    id: display_timeout
+    unit_of_measurement: "s"
+    initial_value: 45
+    restore_value: true
+    min_value: 10
+    max_value: 1000
+    step: 5
+    mode: box
+
+http_request:
+  verify_ssl: false
+
+display:
+  - platform: vnc
+    id: vnc_display
+    #transform:
+      #swap_xy: true
+      #mirror_x: true
+    #rotation: 180
+    update_interval: 10s
+    auto_clear_enabled: false
+    dimensions:
+      width: 480
+      height: 320
+      
+    on_connect:
+      then:
+        - lvgl.widget.redraw:
+
+  - platform: ili9xxx
+    model: ili9488_a
+    dc_pin: GPIO16 # Green
+    reset_pin: GPIO15 # Yellow
+    cs_pin: GPIO14 # White
+    dimensions:
+      height: 320
+      width: 480
+    color_order: bgr
+    invert_colors: false
+    #update_interval: 5s
+    id: my_display  
+#    show_test_card: true
+    auto_clear_enabled: false
+    transform:
+      swap_xy: true
+      mirror_y: true
+      mirror_x: true
+#interval:
+#  - interval: 100sec
+#    then:
+#      - lvgl.page.next
+
+
