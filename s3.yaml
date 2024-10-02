@@ -46,12 +46,6 @@ esp32:
   flash_size: 16MB
   framework:
     type: esp-idf
-#    sdkconfig_options:
-#      CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240: "y"
-#      CONFIG_ESP32S3_DATA_CACHE_64KB: "y"
-#      CONFIG_ESP32S3_DATA_CACHE_LINE_64B: "y"
-#      CONFIG_SPIRAM_FETCH_INSTRUCTIONS: y
-#      CONFIG_SPIRAM_RODATA: y
 
 psram:
   mode: octal
@@ -71,12 +65,6 @@ packages:
 script: !include common/script.yaml
 
 external_components:
-#  - source: github://pr#7315
-#    components: [lvgl]
-#  - source: github://pr#7338
-#    components: [lvgl]
-#  - source: github://pr#7370
-#    components: [lvgl]
   - source: github://clydebarrow/esphome@lvgl-fixes
     refresh: 60min
     components: [ lvgl ]
@@ -154,17 +142,6 @@ touchscreen:
               - lvgl.widget.redraw:
               - light.turn_on: back_light
 
-#  on_touch:
-#    - lambda: |-
-#          ESP_LOGI("cal", "id=%d, x=%d, y=%d, x_raw=%d, y_raw=%0d",
-#              touch.id,
-#              touch.x,
-#              touch.y,
-#              touch.x_raw,
-#              touch.y_raw
-#              );     
-
-
 light:        
 
   - platform: monochromatic
@@ -177,55 +154,8 @@ light:
 
 output:
   - platform: ledc
-    pin: GPIO18 # Purple
+    pin: GPIO18
     id: s3backlight
-    
-
-#i2s_audio:
-#  - id: i2s_out
-#    i2s_lrclk_pin: GPIO09 #lrclk on amp
-#    i2s_bclk_pin: GPIO11 #bclk on amp
-#  - id: i2s_in
-#    i2s_lrclk_pin: GPIO16 # ws on mic
-#    i2s_bclk_pin: GPIO15 # sck on mic
-
-#microphone:
-#  - platform: i2s_audio
-#    i2s_audio_id: i2s_in
-#    id: va_mic
-#    adc_type: external
-#    i2s_din_pin: GPIO48 #sd on mic
-#    pdm: false
-#    channel: right
-
-#media_player:
-#  - platform: i2s_audio
-#    i2s_audio_id: i2s_out
-#    id: media_out
-#    name: None
-#    dac_type: external
-#    i2s_dout_pin: GPIO47 #din on amp
-#    mode: mono
-
-#speaker:
-#  - platform: i2s_audio
-#    id: ext_speaker
-#    i2s_dout_pin: GPIO47
-#    dac_type: external
-#    mode: mono
-
-# sensor:
-#  - platform: adc
-#    pin: GPIO09
-#    name: "${friendly_name} Brightness"
-#    device_class: illuminance
-#    unit_of_measurement: lx
-#    filters:
-#      - lambda: |-
-#          return (x / 10000.0) * 2000000.0;
-#    update_interval: 5s
-#    icon: mdi:white-balance-sunny
-
   
 time:
   - platform: homeassistant
@@ -267,8 +197,6 @@ time:
           - switch.turn_off: switch_antiburn
     on_time_sync:
       - script.execute: time_update
-
-
 
 switch:
   - platform: template
@@ -316,31 +244,25 @@ http_request:
 display:
   - platform: vnc
     id: vnc_display
-    #transform:
-      #swap_xy: true
-      #mirror_x: true
-    #rotation: 180
     update_interval: 10s
     auto_clear_enabled: false
     dimensions:
       width: 480
-      height: 320
-      
+      height: 320     
     on_connect:
       then:
         - lvgl.widget.redraw:
 
   - platform: ili9xxx
     model: ili9488_a
-    dc_pin: GPIO16 # Green
-    reset_pin: GPIO15 # Yellow
-    cs_pin: GPIO14 # White
+    dc_pin: GPIO16
+    reset_pin: GPIO15
+    cs_pin: GPIO14
     dimensions:
       height: 320
       width: 480
     color_order: bgr
     invert_colors: false
-    #update_interval: 5s
     id: my_display  
 #    show_test_card: true
     auto_clear_enabled: false
