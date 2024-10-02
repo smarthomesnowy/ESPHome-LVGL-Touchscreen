@@ -125,7 +125,8 @@ I have the idea to make a vintage desktop PC and monitor to house everything in.
 
 ## Conclusion
 
-This is my most complicated device so far and after using it for a while I can see some additions I could make such as making an "alarm" on the display and LED ring for certain triggers.
-I am very happy with this project and will convert the other two clocks when the display boards arrive.
+Having lived with the display for a few days I am now very happy with it, yes I can see a few things that are not perfectly aligned, out by a few pixels but that can always be tweaked later.
+I am super impressed with LVGL as a whole - Thank you Clive and Nagyrobi! for all the hard work in making this happen on ESPHome, it is a perfect addition to the eco system.
+
 
 
