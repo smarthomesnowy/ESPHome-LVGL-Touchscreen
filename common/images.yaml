@@ -420,21 +420,3 @@ image:
 - file: "images/ajaxlogo.png"
   id: ajaxlogo
   type: RGB565
-
-#online_image:
-#  - url: "https://a.espncdn.com/i/teamlogos/soccer/500/362.png"
-#    format: png
-#    id: villa_online_image
-#    resize: 100X100
-#    #type: RGB565
-#    update_interval: 60min
-
-
-
-#  - url: "https://a.espncdn.com/i/teamlogos/soccer/500/368.png"
-#    format: png
-#    id: everton_online_image
-#    resize: 100X100
-#    #type: RGB565
-#    update_interval: 60min
-
