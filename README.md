@@ -1,4 +1,4 @@
-# ESPHome-LVGL-small-screen
+# ESPHome-LVGL-Touchscreen
 
 
 ## Idea
