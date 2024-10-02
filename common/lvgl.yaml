@@ -56,23 +56,23 @@ lvgl:
         bg_opa: COVER
 
     slider:
-      border_width: 1
-      border_opa: 15%
-      bg_color: 0xcccaca
-      bg_opa: 15%
+      border_width: 2
+      border_opa: 0%
+      bg_color: my_pink
+      bg_opa: 0%
       indicator:
-        bg_color: 0x1d5f96
-        bg_grad_color: 0x03324A
+        bg_color: my_pink
+        bg_grad_color: my_blue
         bg_grad_dir: VER
         bg_opa: COVER
 
       knob:
-        bg_color: 0x2F8CD8
-        bg_grad_color: 0x005782
+        bg_color: my_blue
+        bg_grad_color: my_blue
         bg_grad_dir: VER
         bg_opa: COVER
-        border_color: 0x0077b3
-        border_width: 1
+        border_color: color_black
+        border_width: 2
         text_color: 0xFFFFFF
 
   style_definitions:
@@ -504,7 +504,7 @@ lvgl:
         - line:
             points:
               - 252, 132
-              - 310, 132
+              - 305, 132
             line_width: 4
             line_color: my_pink
             line_rounded: true
@@ -1134,6 +1134,442 @@ lvgl:
                   grid_cell_y_align: STRETCH
 
 ######################################################
+#                   WEATHER PAGE                     #
+#                                                    #
+######################################################
+    - id: weather_mainpage
+      bg_image_src: pinkcurve
+      widgets:
+        - obj:
+            align: TOP_LEFT
+            y: 25
+            bg_opa: TRANSP
+            border_opa: TRANSP
+            width: 240
+            height: 225
+            layout:
+              pad_row: 2
+              pad_column: 1
+              type: GRID
+              grid_columns: [FR(20),FR(80)]
+              grid_rows: [FR(1),FR(1),FR(1),FR(1),FR(1)]   
+            widgets:
+              - label:
+                  id: outside_temp_wp_icon_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: roboto_icons_30
+                  text: "\U000F10C3"
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: outside_temp_wp_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: LEFT
+                  text_color: color_white
+                  text_font: roboto_icons_24
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: buienradar_humidity_icon_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: roboto_icons_30
+                  text: "\U000F185B"
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: buienradar_humidity_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: LEFT
+                  text_color: color_white
+                  text_font: roboto_icons_24
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: buienradar_irradiance_icon_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: roboto_icons_30
+                  text: "\U000F0599"
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 2
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: buienradar_irradiance_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: LEFT
+                  text_color: color_white
+                  text_font: roboto_icons_24
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 2
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: buienradar_rain_last_hour_icon_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: roboto_icons_30
+                  text: "\U000F0596"
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 3
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: buienradar_rain_last_hour_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: LEFT
+                  text_color: color_white
+                  text_font: roboto_icons_24
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 3
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: buienradar_rain_last_24h_icon_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: roboto_icons_30
+                  text: "\U000F0597"
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 4
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                  
+              - label:
+                  id: buienradar_rain_last_24h_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: LEFT
+                  text_color: color_white
+                  text_font: roboto_icons_24
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 4
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                  
+        - obj:
+            id: weather_today
+            scrollbar_mode: "OFF"
+            align: TOP_MID
+            height: 150
+            width: 280
+            y: 10
+            layout:
+              pad_row: 5
+              pad_column: 1
+              type: GRID
+              grid_columns: [FR(1)]
+              grid_rows: [FR(1)] 
+            bg_opa: TRANSP
+            border_opa: TRANSP
+            #bg_color: 0x000000
+            widgets:
+
+          
+              - label:
+                  id: current_weather_icon
+                  #recolor: true
+                  align: TOP_MID
+                  text_font: font_mdi_large
+                  text_color: color_white
+                  text_align: CENTER
+                  text: "Weather"
+                  #width: 120
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+        - obj:
+            id: condition_today
+            scrollbar_mode: "OFF"
+            align: TOP_MID
+            height: 90
+            width: 280
+            y: 75
+            bg_opa: TRANSP
+            border_opa: TRANSP
+            #bg_color: 0x000000
+            widgets:
+
+              - label:
+                  id: condition_wp_label
+                  #x: +45
+                  #y: 30
+                  #width: 150
+                  height: 50
+                  long_mode: scroll_circular
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: robo_30
+
+
+        - obj:
+            id: weather_tom
+            scrollbar_mode: "OFF"
+            align: CENTER
+            height: 180
+            width: 280
+            y: 40
+            #x: 50
+            layout:
+              pad_row: 5
+              pad_column: 1
+              type: GRID
+              grid_columns: [FR(1)]
+              grid_rows: [FR(1),FR(1)] 
+            bg_opa: TRANSP
+            border_opa: TRANSP
+            #bg_color: 0x000000
+            widgets:
+
+              - label:
+                  id: current_weather_icon_1d
+                  recolor: true
+                  align: CENTER
+                  text_font: font_mdi_large
+                  text_color: color_white
+                  text_align: CENTER
+                  text: "Weather"
+                  #width: 120
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: condition_label_1d
+                  #x: +45
+                  #y: 30
+                  #width: 150
+                  #height: 40
+                  long_mode: scroll_circular
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: robo_30
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+
+        - obj:
+            align: TOP_RIGHT
+            y: 25
+            x: 75
+            bg_opa: TRANSP
+            border_opa: TRANSP
+            width: 210
+            height: 225
+            layout:
+              pad_row: 2
+              pad_column: 1
+              type: GRID
+              grid_columns: [FR(20),FR(80)]
+              grid_rows: [FR(1),FR(1),FR(1),FR(1),FR(1)]   
+            widgets:
+              - label:
+                  id: buienradar_temperature_1d_wp_icon_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: roboto_icons_30
+                  text: "\U000F10C3"
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: buienradar_temperature_1d_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: LEFT
+                  text_color: color_white
+                  text_font: roboto_icons_24
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: buienradar_minimum_rain_1d_icon_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: roboto_icons_30
+                  text: "\U000F0597"
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: buienradar_minimum_rain_1d_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: LEFT
+                  text_color: color_white
+                  text_font: roboto_icons_24
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: buienradar_maximum_rain_1d_icon_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: roboto_icons_30
+                  text: "\U000F0596"
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 2
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: buienradar_maximum_rain_1d_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: LEFT
+                  text_color: color_white
+                  text_font: roboto_icons_24
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 2
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: buienradar_rainchance_1d_icon_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: roboto_icons_30
+                  text: "\U000F0596"
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 3
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: buienradar_rainchance_1d_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: LEFT
+                  text_color: color_white
+                  text_font: roboto_icons_24
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 3
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+              - label:
+                  id: sunchance_1d_icon_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: CENTER
+                  text_color: color_white
+                  text_font: roboto_icons_30
+                  text: "\U000F0599"
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 4
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                  
+              - label:
+                  id: sunchance_1d_label
+                  long_mode: scroll_circular
+                  #styles: date_style
+                  #y: -15
+                  align: CENTER
+                  text_align: LEFT
+                  text_color: color_white
+                  text_font: roboto_icons_24
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 4
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+
+
+
+######################################################
 #                   CONTROLS PAGE                    #
 #                                                    #
 ######################################################
@@ -1142,41 +1578,18 @@ lvgl:
       bg_image_src: pinkwash
       widgets:
           
-        - slider:
-            id: all_lights_slider
-            x: 00
-            y: 10
-            pad_all: 5
-            min_value: 0
-            max_value: 255
-            radius: 20
-            bg_color: color_gray
-            align: CENTER
-            width: 40
-            height: 160
-            indicator:
-              bg_color: my_pink
-              radius: 20
-            knob:
-              bg_opa: TRANSP
-            on_release:
-              - homeassistant.action:
-                  action: light.turn_on
-                  data:
-                    entity_id: light.all_lights
-                    brightness: !lambda return int(x);
         - obj:
-            align: TOP_RIGHT
+            align: TOP_LEFT
             y: +25
             styles: f1_page
-            width: 250
-            height: 290
+            width: 200
+            height: 220
             layout:
-              pad_row: 5
+              pad_row: 10
               pad_column: 5
               type: GRID
-              grid_columns: [FR(65),FR(35)]
-              grid_rows: [FR(1),FR(1),FR(1),]
+              grid_columns: [FR(1),FR(1)]
+              grid_rows: [FR(1),FR(1),FR(1)]
             widgets:
 
             
@@ -1193,15 +1606,15 @@ lvgl:
                   checked:
                     bg_color: color_dark_gray
                     #bg_grad_color: 0x03324A
-                    text_color: color_violet
-                    shadow_color: my_orange
+                    text_color: color_yellow
+                    shadow_color: my_pink
                     shadow_spread: 3
                   bg_color: color_black
                   shadow_color: color_violet
                   shadow_spread: 2
                   shadow_width: 25
                   shadow_opa: 100%
-                  grid_cell_column_pos: 1
+                  grid_cell_column_pos: 0
                   grid_cell_row_pos: 0
                   grid_cell_x_align: STRETCH
                   grid_cell_y_align: STRETCH
@@ -1210,29 +1623,17 @@ lvgl:
                         align: CENTER
                         text_font: roboto_icons_48
                         text_color: color_violet
-                        text: "${light}"
+                        text: "\U000F066F"
                     - label:
                         id: lbl_deathstar_light_btn
                         align: CENTER
                         text_font: roboto_icons_48
-                        text: "\U000F0336" # mdi-lightbulb-outline
+                        text: "\U000F066F" # mdi-lightbulb-outline
                   on_short_click:
                     - homeassistant.action:
                         action: light.toggle
                         data:
                           entity_id: light.deathstar
-              - label:
-                  align: CENTER
-                  text_font: robo_25
-                  text_color: color_white
-                  text: "Deathstar"
-                  text_align: RIGHT
-                  y: -30
-                  grid_cell_column_pos: 0
-                  grid_cell_row_pos: 0
-                  grid_cell_x_align: STRETCH
-                  grid_cell_y_align: STRETCH
-
             
               - button:
                   id: harshlight_light_btn
@@ -1247,11 +1648,89 @@ lvgl:
                   checked: # set some button colors to be different in checked state
                     bg_color: color_dark_gray
                     #bg_grad_color: 0x03324A
+                    text_color: color_yellow
+                    shadow_color: my_blue
+                    shadow_spread: 3
+                  bg_color: color_black
+                  shadow_color: color_violet
+                  shadow_spread: 2
+                  shadow_width: 25
+                  shadow_opa: 100%
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 0
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                  widgets:
+                    - label:
+                        align: CENTER
+                        text_font: roboto_icons_48
+                        text_color: color_violet
+                        text: "\U000F04C8"
+                    - label:
+                        id: harsh_light_btn
+                        align: CENTER
+                        text_font: roboto_icons_48
+                        text: "\U000F04C8" # mdi-lightbulb-outline
+                  on_short_click:
+                    - homeassistant.action:
+                        action: switch.toggle
+                        data:
+                          entity_id: switch.harsh_light
+
+              - button:
+                  id: wled_fireplace_main_btn
+                  on_click:
+                    - homeassistant.action:
+                        action: light.toggle
+                        data:
+                          entity_id: light.wled_fireplace_main
+                  checkable: true
+                  checked:
+                    bg_color: color_dark_gray
+                    text_color: color_yellow
+                    shadow_color: my_orange
+                    shadow_spread: 3
+                  bg_color: color_black
+                  shadow_color: color_amber
+                  shadow_spread: 2
+                  shadow_width: 25
+                  shadow_opa: 100%
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                  widgets:
+                    - label:
+                        align: CENTER
+                        text_font: roboto_icons_48
+                        text_color: color_orange
+                        text: "\U000F07D5"
+                    - label:
+                        id: wled_fireplace_main_label
+                        align: CENTER
+                        text_font: roboto_icons_48
+                        text: "\U000F07D5"
+                  on_short_click:
+                    - homeassistant.action:
+                        action: light.toggle
+                        data:
+                          entity_id: light.wled_fireplace_main
+
+              - button:
+                  id: wled_workshop_main_btn
+                  on_click:
+                    - homeassistant.action:
+                        action: light.toggle
+                        data:
+                          entity_id: light.wled_workshop_main
+                  checkable: true
+                  checked:
+                    bg_color: color_dark_gray
                     text_color: color_violet
                     shadow_color: my_orange
                     shadow_spread: 3
                   bg_color: color_black
-                  shadow_color: color_violet
+                  shadow_color: color_green
                   shadow_spread: 2
                   shadow_width: 25
                   shadow_opa: 100%
@@ -1264,41 +1743,74 @@ lvgl:
                         align: CENTER
                         text_font: roboto_icons_48
                         text_color: color_violet
-                        text: "${light}"
+                        text: "\U000F12BA"
                     - label:
-                        id: harsh_light_btn
+                        id: wled_workshop_main_label
                         align: CENTER
                         text_font: roboto_icons_48
-                        text: "\U000F0336" # mdi-lightbulb-outline
+                        text: "\U000F12BA"
                   on_short_click:
                     - homeassistant.action:
-                        action: switch.toggle
+                        action: light.toggle
                         data:
-                          entity_id: switch.harsh_light
-              - label:
-                  align: CENTER
-                  text_font: robo_25
-                  text_color: color_white
-                  text: "Harsh"
-                  text_align: RIGHT
-                  y: -30
-                  grid_cell_column_pos: 0
-                  grid_cell_row_pos: 2
-                  grid_cell_x_align: STRETCH
-                  grid_cell_y_align: STRETCH
+                          entity_id: light.wled_workshop_main
+
 
               - button:
-                  id: wled_light_btn
+                  id: wled_main_btn
                   on_click:
                     - homeassistant.action:
                         action: light.toggle
                         data:
-                          entity_id: light.wled
+                          entity_id: light.wled_main
                   checkable: true
                   checked:
                     bg_color: color_dark_gray
-                    text_color: color_violet
-                    shadow_color: my_orange
+                    text_color: color_orange
+                    shadow_color: my_pink
+                    shadow_spread: 3
+                  bg_color: color_black
+                  shadow_color: color_violet
+                  shadow_spread: 2
+                  shadow_width: 25
+                  shadow_opa: 100%
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 2
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                  widgets:
+                    - label:
+                        align: CENTER
+                        text_font: roboto_icons_48
+                        text_color: color_violet
+                        text: "\U000F0E2E"
+                    - label:
+                        id: wled_main_btn_label
+                        align: CENTER
+                        text_font: roboto_icons_48
+                        text: "\U000F0E2E"
+                  on_short_click:
+                    - homeassistant.action:
+                        action: light.toggle
+                        data:
+                          entity_id: light.wled_main
+
+            
+              - button:
+                  id: benchpsu_btn
+                  #width: 135
+                  #height: 135
+                  on_click:
+                    - homeassistant.action:
+                        action: switch.toggle
+                        data:
+                          entity_id: switch.benchpsu_main_power
+                  checkable: true
+                  checked: # set some button colors to be different in checked state
+                    bg_color: color_dark_gray
+                    #bg_grad_color: 0x03324A
+                    text_color: my_pink
+                    shadow_color: color_crimson
                     shadow_spread: 3
                   bg_color: color_black
                   shadow_color: color_violet
@@ -1313,48 +1825,136 @@ lvgl:
                     - label:
                         align: CENTER
                         text_font: roboto_icons_48
-                        text_color: color_violet
-                        text: "${light}"
+                        text_color: color_crimson
+                        text: "\U000F0425"
                     - label:
-                        id: wled_light_btn_label
+                        id: benchpsu_btn_label
                         align: CENTER
                         text_font: roboto_icons_48
-                        text: "\U000F0336"
+                        text: "\U000F0425" # mdi-lightbulb-outline
                   on_short_click:
                     - homeassistant.action:
-                        action: light.toggle
+                        action: switch.toggle
                         data:
-                          entity_id: light.wled
-
-              - label:
+                          entity_id: switch.benchpsu_main_power
+          
+        - obj:
+            align: TOP_MID
+            bg_opa: TRANSP
+            border_opa: TRANSP
+            scrollbar_mode: "OFF"
+            y: 50
+            x: 15
+            #styles: f1_page
+            width: 100
+            height: 200
+            widgets:
+              - slider:
+                  id: all_lights_slider
+                  x: 00
+                  #y: 10
+                  pad_all: 5
+                  min_value: 0
+                  max_value: 255
+                  radius: 20
+                  #bg_color: color_yellow
                   align: CENTER
-                  text_font: robo_25
-                  text_color: color_white
-                  text: "WLED"
-                  text_align: RIGHT
-                  y: -30
-                  grid_cell_column_pos: 0
-                  grid_cell_row_pos: 2
-                  grid_cell_x_align: STRETCH
-                  grid_cell_y_align: STRETCH
+                  width: 40
+                  height: 170        
+                  indicator:
+                    #bg_color: color_amber
+                    radius: 15
+                  # knob:
+                  #   #bg_opa: my_pink
+                  #   bg_color: my_claret
+                  #   text_color: my_claret
+                    
+                  on_release:
+                    - homeassistant.action:
+                        action: light.turn_on
+                        data:
+                          entity_id: light.all_lights
+                          brightness: !lambda return int(x);
+          
+        - obj:
+            align: TOP_MID
+            bg_opa: TRANSP
+            border_opa: TRANSP
+            scrollbar_mode: "OFF"
+            y: 50
+            x: 90
+            #styles: f1_page
+            width: 100
+            height: 200
+            widgets:
+              - slider:
+                  id: deathstar_slider
+                  x: 00
+                  #y: 10
+                  pad_all: 5
+                  min_value: 0
+                  max_value: 255
+                  radius: 20
+                  #bg_color: color_yellow
+                  align: CENTER
+                  width: 40
+                  height: 170        
+                  indicator:
+                    #bg_color: color_amber
+                    radius: 15
+                  # knob:
+                  #   #bg_opa: my_pink
+                  #   bg_color: my_claret
+                  #   text_color: my_claret
+                    
+                  on_release:
+                    - homeassistant.action:
+                        action: light.turn_on
+                        data:
+                          entity_id: light.deathstar
+                          brightness: !lambda return int(x);
 
+        - obj:
+            align: TOP_MID
+            bg_opa: TRANSP
+            border_opa: TRANSP
+            scrollbar_mode: "OFF"
+            y: 50
+            x: 180
+            #styles: f1_page
+            width: 100
+            height: 200
+            widgets:
+              - slider:
+                  id: slider_media_player
+                  x: 00
+                  #y: 10
+                  pad_all: 5
+                  radius: 20
+                  #bg_color: color_yellow
+                  align: CENTER
+                  width: 40
+                  height: 170
+                  min_value: 0
+                  max_value: 60         
+                  indicator:
+                  #  bg_color: color_amber
+                    radius: 15
+                  # knob:
+                  #   #bg_opa: my_pink
+                  #   bg_color: my_claret
+                  #   text_color: my_claret
+                    
+                  on_release:
+                    - homeassistant.action:
+                        action: media_player.volume_set
+                        data:
+                          entity_id: media_player.denon_avr_x2000
+                          volume_level: !lambda return int(x);
+                
 ######################################################
 #                   LIGHTS PAGE                      #
 #                                                    #
 ######################################################
     - id: lights_mainpage
       skip: true
-######################################################
-#                   WEATHER PAGE                     #
-#                                                    #
-######################################################
-    - id: weather_mainpage
-      bg_image_src: pinkwash
-      widgets:
-        - obj:
-            align: CENTER
-            width: 160
-            height: 160
-            bg_opa: TRANSP
-            border_opa: TRANSP
-            widgets:

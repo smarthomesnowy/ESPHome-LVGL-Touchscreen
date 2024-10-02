@@ -1,6 +1,8 @@
 font:
-
- 
+- file: "fonts/Roboto-Medium.ttf"
+  id: robo_20
+  size: 20
+  bpp: 4
 - file: "fonts/Roboto-Medium.ttf"
   id: robo_25
   size: 25
@@ -79,7 +81,11 @@ font:
         "\U000F0731", # left
         "\U000F07D0", # home        
         "\U000F05A9", # mdi-airplane-landing
-        "\U0000E915", # temp  
+        "\U000F10C3", # temp
+        "\U000F185B", #humidity  
+        "\U000F0599", # Lux
+        "\U000F0597", # rainy
+        "\U000F0596", # pouring
         "\U000F1119", # motion tower
         "\U000F0D91", # motion man
         "\U000F1435", # motion man off
@@ -121,6 +127,28 @@ font:
         "\U0000E911", # wifi
         "\U0000E915", # temp
         ]
+- file: "fonts/Roboto-Medium.ttf"
+  id: roboto_icons_35
+  size: 35
+  bpp: 4
+  extras:
+    - file: "fonts/materialdesignicons-webfont.ttf"
+      glyphs: [
+        "\U000F02D1", # mdi-heart
+        "\U000F07D0", # home        
+        "\U0000E911", # wifi  
+        "\U000F0210", # fan
+        "\U000F1802", # lights
+        "\U000F07CE", # headphones
+        "\U000F0734", # arrow right
+        "\U000F0731", # arrow left
+        "\U000F0335", # mdi-lightbulb
+        "\U000F0336", # mdi-lightbulb-outline
+        "\U000F0928", # wifi signal from 100% to 75% or disable
+        "\U000F0925", # wifi signal from 75% to 50%
+        "\U000F0922", # wifi signal from 50% to 25%
+        "\U000F091F", # wifi signal from 25% to 1%
+        ]
 
 - file: "fonts/Roboto-Medium.ttf"
   id: roboto_icons_48
@@ -143,4 +171,46 @@ font:
         "\U000F0925", # wifi signal from 75% to 50%
         "\U000F0922", # wifi signal from 50% to 25%
         "\U000F091F", # wifi signal from 25% to 1%
+        "\U000F066F", # deathstar
+        "\U000F04C8", # harshlight
+        "\U000F0E2E", # fireplace
+        "\U000F1051", # ledstrips 
+        "\U000F07D5", # lavalamp/ikea
+        "\U000F12BA", # fairylights
+        "\U000F0425", # benchpsu
         ]
+
+- file: 'fonts/materialdesignicons-webfont.ttf'
+  id: font_mdi_large
+  size: 75
+  glyphs: &mdi-weather-glyphs
+    - "\U000F0590" # mdi-weather-cloudy
+    - "\U000F0F2F" # mdi-weather-cloudy-alert
+    - "\U000F0E6E" # mdi-weather-cloudy-arrow-right
+    - "\U000F0591" # mdi-weather-fog
+    - "\U000F0592" # mdi-weather-hail
+    - "\U000F0F30" # mdi-weather-hazy
+    - "\U000F0898" # mdi-weather-hurricane
+    - "\U000F0593" # mdi-weather-lightning
+    - "\U000F067E" # mdi-weather-lightning-rainy
+    - "\U000F0594" # mdi-weather-clear-night
+    - "\U000F0F31" # mdi-weather-night-partly-cloudy
+    - "\U000F0595" # mdi-weather-partly-cloudy
+    - "\U000F0F32" # mdi-weather-partly-lightning
+    - "\U000F0F33" # mdi-weather-partly-rainy
+    - "\U000F0F34" # mdi-weather-partly-snowy
+    - "\U000F0F35" # mdi-weather-partly-snowy-rainy
+    - "\U000F0596" # mdi-weather-pouring
+    - "\U000F0597" # mdi-weather-rainy
+    - "\U000F0598" # mdi-weather-snowy
+    - "\U000F0F36" # mdi-weather-snowy-heavy
+    - "\U000F067F" # mdi-weather-snowy-rainy
+    - "\U000F0599" # mdi-weather-sunny
+    - "\U000F0F37" # mdi-weather-sunny-alert
+    - "\U000F14E4" # mdi-weather-sunny-off
+    - "\U000F059A" # mdi-weather-sunset
+    - "\U000F059B" # mdi-weather-sunset-down
+    - "\U000F059C" # mdi-weather-sunset-up
+    - "\U000F0F38" # mdi-weather-tornado
+    - "\U000F059D" # mdi-weather-windy
+    - "\U000F059E" # mdi-weather-windy-variant

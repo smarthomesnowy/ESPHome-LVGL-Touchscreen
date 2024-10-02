@@ -19,9 +19,9 @@ sensor:
               if (id(average_temperature).state > -10 && id(average_temperature).state < 0) {
               return lv_color_hex(0x00FF00);
               } else if (id(average_temperature).state > 1 && id(average_temperature).state < 15) {
-              return lv_color_hex(0x48a516);
+              return lv_color_hex(0x066ccb);
               } else if (id(average_temperature).state > 16 && id(average_temperature).state < 23) {
-              return lv_color_hex(0x2ccb79);
+              return lv_color_hex(0x54f30a);
               } else if (id(average_temperature).state > 23 && id(average_temperature).state < 35) {
               return lv_color_hex(0xd42323);
               }
@@ -50,9 +50,9 @@ sensor:
               if (id(shelf_temperature).state > -10 && id(shelf_temperature).state < 0) {
               return lv_color_hex(0x00FF00);
               } else if (id(shelf_temperature).state > 1 && id(shelf_temperature).state < 15) {
-              return lv_color_hex(0x48a516);
+              return lv_color_hex(0x066ccb);
               } else if (id(shelf_temperature).state > 16 && id(shelf_temperature).state < 23) {
-              return lv_color_hex(0x2ccb79);
+              return lv_color_hex(0x54f30a);
               } else if (id(shelf_temperature).state > 23 && id(shelf_temperature).state < 35) {
               return lv_color_hex(0xd42323);
               }
@@ -71,9 +71,9 @@ sensor:
               if (id(bigbutton_temperature).state > -10 && id(bigbutton_temperature).state < 0) {
               return lv_color_hex(0x00FF00);
               } else if (id(bigbutton_temperature).state > 1 && id(bigbutton_temperature).state < 15) {
-              return lv_color_hex(0x48a516);
+              return lv_color_hex(0x066ccb);
               } else if (id(bigbutton_temperature).state > 16 && id(bigbutton_temperature).state < 23) {
-              return lv_color_hex(0x2ccb79);
+              return lv_color_hex(0x54f30a);
               } else if (id(bigbutton_temperature).state > 23 && id(bigbutton_temperature).state < 35) {
               return lv_color_hex(0xd42323);
               }
@@ -90,11 +90,11 @@ sensor:
             args: [x]
           text_color: !lambda |-
               if (id(workshop_temperature).state > -10 && id(workshop_temperature).state < 0) {
-              return lv_color_hex(0x00FF00);
+              return lv_color_hex(0x55e1f4);
               } else if (id(workshop_temperature).state > 1 && id(workshop_temperature).state < 15) {
-              return lv_color_hex(0x48a516);
+              return lv_color_hex(0x066ccb);
               } else if (id(workshop_temperature).state > 16 && id(workshop_temperature).state < 23) {
-              return lv_color_hex(0x2ccb79);
+              return lv_color_hex(0x54f30a);
               } else if (id(workshop_temperature).state > 23 && id(workshop_temperature).state < 35) {
               return lv_color_hex(0xd42323);
               }
@@ -112,40 +112,170 @@ sensor:
     entity_id: sensor.buienradar_feel_temperature # Change the entity from your Home Assistant
     on_value:
       - lvgl.label.update:
-          id: outside_temp_label
+          id:
+            -  outside_temp_label
+            -  outside_temp_wp_label
+#            -  outside_temp_wp_big_label
           text:
             format: "%.0f°C"
             args: [x]
           text_color: !lambda |-
               if (id(outside_temp).state > -10 && id(outside_temp).state < 0) {
-              return lv_color_hex(0x00FF00);
+              return lv_color_hex(0x55e1f4);
               } else if (id(outside_temp).state > 1 && id(outside_temp).state < 15) {
-              return lv_color_hex(0x48a516);
+              return lv_color_hex(0x066ccb);
               } else if (id(outside_temp).state > 16 && id(outside_temp).state < 23) {
-              return lv_color_hex(0x2ccb79);
+              return lv_color_hex(0x54f30a);
               } else if (id(outside_temp).state > 23 && id(outside_temp).state < 35) {
               return lv_color_hex(0xd42323);
               }
               return lv_color_hex(0x00FF00);
 
+#   - platform: homeassistant
+#     id: ground_temp
+#     entity_id: sensor.buienradar_ground_temperature # Change the entity from your Home Assistant
+#     on_value:
+#       - lvgl.label.update:
+#           id:
+#             -  ground_temp_label
+# #            -  outside_temp_wp_label
+# #            -  outside_temp_wp_big_label
+#           text:
+#             format: "%.0f°C"
+#             args: [x]
+#           text_color: !lambda |-
+#               if (id(ground_temp).state > -10 && id(ground_temp).state < 0) {
+#               return lv_color_hex(0x00FF00);
+#               } else if (id(ground_temp).state > 1 && id(ground_temp).state < 15) {
+#               return lv_color_hex(0x066ccb);
+#               } else if (id(ground_temp).state > 16 && id(ground_temp).state < 23) {
+#               return lv_color_hex(0x54f30a);
+#               } else if (id(ground_temp).state > 23 && id(outside_temp).state < 35) {
+#               return lv_color_hex(0xd42323);
+#               }
+#               return lv_color_hex(0x00FF00);
+
+
+
+  # - platform: homeassistant
+  #   id: buienradar_wind
+  #   entity_id: sensor.buienradar_wind_speed
+  #   on_value:
+  #     - lvgl.label.update:
+  #         id: buienradar_wind_label
+
+  # - platform: homeassistant
+  #   id: buienradar_gust
+  #   entity_id: sensor.buienradar_wind_gust    
+  #   on_value:
+  #     - lvgl.label.update:
+  #         id: buienradar_gust_label
+
+  - platform: homeassistant
+    id: buienradar_irradiance
+    entity_id: sensor.buienradar_irradiance
+    on_value:
+      - lvgl.label.update:
+          id: buienradar_irradiance_label
+          text:
+            format: "%.0fW/m"
+            args: [x]
+     
+  - platform: homeassistant
+    id: buienradar_humidity
+    entity_id: sensor.buienradar_humidity
+    on_value:
+      - lvgl.label.update:
+          id: buienradar_humidity_label
+          text:
+            format: "%.0f%%"
+            args: [x]
+
+  - platform: homeassistant
+    id: buienradar_rain_last_24h
+    entity_id: sensor.buienradar_rain_last_24h
+    on_value:
+      - lvgl.label.update:
+          id: buienradar_rain_last_24h_label
+          text:
+            format: "%.1fmm"
+            args: [x]
+              
+  - platform: homeassistant
+    id: buienradar_rain_last_hour
+    entity_id: sensor.buienradar_rain_last_hour
+    on_value:
+      - lvgl.label.update:
+          id: buienradar_rain_last_hour_label
+          text:
+            format: "%.1fmm"
+            args: [x]
+     
+  # - platform: homeassistant
+  #   id: buienradar_minimum_temperature_1d
+  #   entity_id: sensor.buienradar_minimum_temperature_1d
+  #   on_value:
+  #     - lvgl.label.update:
+  #         id: buienradar_minimum_temperature_1d_label
+
+  # - platform: homeassistant
+  #   id: buienradar_wind_speed_1d
+  #   entity_id: sensor.buienradar_wind_speed_1d
+  #   on_value:
+  #     - lvgl.label.update:
+  #         id: buienradar_wind_speed_1d_label
+
+  - platform: homeassistant
+    id: buienradar_temperature_1d
+    entity_id: sensor.buienradar_temperature_1d
+    on_value:
+      - lvgl.label.update:
+          id: buienradar_temperature_1d_label
+          text:
+            format: "%.0f°C"
+            args: [x]
+
+  - platform: homeassistant
+    id: buienradar_minimum_rain_1d
+    entity_id: sensor.buienradar_minimum_rain_1d
+    on_value:
+      - lvgl.label.update:
+          id: buienradar_minimum_rain_1d_label
+          text:
+            format: "%.1f"
+            args: [x]
+
+  - platform: homeassistant
+    id: buienradar_maximum_rain_1d
+    entity_id: sensor.buienradar_maximum_rain_1d
+    on_value:
+      - lvgl.label.update:
+          id: buienradar_maximum_rain_1d_label
+          text:
+            format: "%.1f"
+            args: [x]
+
   - platform: homeassistant
     id: rainchance_1d
     entity_id: sensor.buienradar_rainchance_1d
     unit_of_measurement: percent 
+    on_value:
+      - lvgl.label.update:
+          id: buienradar_rainchance_1d_label
+          text:
+            format: "%.0f%%"
+            args: [x]
 
   - platform: homeassistant
     id: sunchance_1d
     entity_id: sensor.buienradar_sunchance_1d
     unit_of_measurement: percent
-
-  - platform: homeassistant
-    id: buienradar_wind
-    entity_id: sensor.buienradar_wind_speed
-
-  - platform: homeassistant
-    id: buienradar_gust
-    entity_id: sensor.buienradar_wind_gust    
-
+    on_value:
+      - lvgl.label.update:
+          id: sunchance_1d_label
+          text:
+            format: "%.0f%%"
+            args: [x]
 
 #  - platform: homeassistant
 #   id: housecon1_temp
@@ -182,14 +312,14 @@ sensor:
 #    psram:
 #      name: "Free PSRAM"
 
-#  - platform: homeassistant
-#    id: media_player_volume
-#    entity_id: media_player.denon_avr_x2000
-#    attribute: volume_level
-#    on_value:
-#      - lvgl.slider.update:
-#          id: slider_media_player
-#          value: !lambda return (x * 100);
+  - platform: homeassistant
+    id: media_player_volume
+    entity_id: media_player.denon_avr_x2000
+    attribute: volume_level
+    on_value:
+      - lvgl.slider.update:
+          id: slider_media_player
+          value: !lambda return (x * 100);
 
 #  - platform: homeassistant
 #    id: media_player_mute
@@ -249,6 +379,15 @@ sensor:
           value: !lambda return x;
 
   - platform: homeassistant
+    id: deathstar_brightness
+    entity_id: light.deathstar
+    attribute: brightness
+    on_value:
+      - lvgl.slider.update:
+          id: deathstar_slider
+          value: !lambda return x;
+
+  - platform: homeassistant
     id: moto_battery
     entity_id: sensor.moto_g_6_plus_battery_level
     on_value:
@@ -284,7 +423,60 @@ sensor:
             }
             snprintf(buf, sizeof(buf), "%s", icon.c_str());
             return buf;
-text_sensor:    
+######################################################
+#                Rotary Encoders                     #
+#                                                    #
+######################################################
+   
+  # - platform: rotary_encoder
+  #   name: "All Lights Rotary"
+  #   pin_a:
+  #     number: GPIO25
+  #     #inverted: true
+  #     mode:
+  #       input: true
+  #       pullup: true
+  #   pin_b: 
+  #     number: GPIO21
+  #     #inverted: true
+  #     mode:
+  #       input: true
+  #       pullup: true
+  #   on_clockwise:
+  #     - logger.log: "Turned Clockwise"
+  #   on_anticlockwise:
+  #     - logger.log: "Turned Anticlockwise"
+
+
+  # # Thermostat temperature
+  # - platform: homeassistant
+  #   id: thermostat_id1
+  #   entity_id: climate.heat_fan
+  #   attribute: temperature
+  #   on_value: 
+  #     then:
+  #       - lvgl.arc.update:
+  #           id: arc_id1
+  #           value: !lambda return x;
+
+  #       - lvgl.label.update:
+  #           id: target_temperature_whole
+  #           text: !lambda |-
+  #             static char buf[10];
+  #             int whole_part = static_cast<int>(id(thermostat_id1).state);
+  #             snprintf(buf, 10, "%d", whole_part);
+  #             return buf;
+
+  #       - lvgl.label.update:
+  #           id: target_temperature_fraction
+  #           text: !lambda |-
+  #             static char buf[10];
+  #             int whole_part = static_cast<int>(id(thermostat_id1).state);
+  #             int fractional_part = static_cast<int>((id(thermostat_id1).state - whole_part) * 10);
+  #             snprintf(buf, 10, ".%01d", fractional_part);
+  #             return buf;
+
+text_sensor:
 ######################################################
 #                Villa Sensors                       #
 #                                                    #
@@ -469,14 +661,70 @@ text_sensor:
 #               Weather text sensors                 #
 #                                                    #
 ######################################################
+
+
+  - platform: homeassistant
+    id: weather_now
+    entity_id: sensor.buienradar_detailed_condition
+    on_value: 
+      then:
+        - script.execute: weather_update
+
+  - platform: homeassistant
+    id: weather_now_1d
+    entity_id: sensor.buienradar_detailed_condition_1d
+    on_value: 
+      then:
+        - script.execute: weather_update_1d
+
   - platform: homeassistant
     id: buienradar_condition
     entity_id: sensor.buienradar_detailed_condition
     on_value:
       - lvgl.label.update:
-          id: condition_label
+          id:
+            - condition_label
+            - condition_wp_label
           text: !lambda |-
               std::string state = id(buienradar_condition).state.c_str(); {
+                  if (state == "clear-night") return "Clear Night";
+                  else if (state == "cloudy") return "Cloudy";
+                  else if (state == "clear") return "Clear";
+                  else if (state == "fog") return "Foggy";
+                  else if (state == "hail") return "Hail";
+                  else if (state == "lightning") return "Stormy";
+                  else if (state == "lightning-rainy") return "Stormy Rain";
+                  else if (state == "partlycloudy") return "Bit Cloudy";
+                  else if (state == "partlycloudy-fog") return "Bit Foggy";
+                  else if (state == "partlycloudy-light-rain") return "Bit Rainy";
+                  else if (state == "partlycloudy-rain") return "Bit Rainy";
+                  else if (state == "partlycloudy-light-snow") return "Bit Snowy";
+                  else if (state == "partlycloudy-snow") return "Bit Snowy";
+                  else if (state == "partlycloudy-lightning") return "Bit Stormy";
+                  else if (state == "pouring") return "Pouring";
+                  else if (state == "rainy") return "Rainy";
+                  else if (state == "light-rain") return "Light Rain";
+                  else if (state == "snowy") return "Snowy";
+                  else if (state == "light-snow") return "Bit Snowy";
+                  else if (state == "snowy-rainy") return "Slushy";
+                  else if (state == "sunny") return "Sunny";
+                  else if (state == "windy") return "Windy";
+                  else if (state == "windy-variant") return "Gales";
+                  else if (state == "exceptional") return "Nightmareish";
+
+                  
+                  return state;
+              }
+
+
+  - platform: homeassistant
+    id: buienradar_condition_1d
+    entity_id: sensor.buienradar_detailed_condition_1d
+    on_value:
+      - lvgl.label.update:
+          id: condition_label_1d
+          text: !lambda |-
+              std::string state = id(buienradar_condition_1d).state.c_str(); {
                   if (state == "clear-night") return "Clear Night";
                   else if (state == "cloudy") return "Cloudy";
                   else if (state == "clear") return "Clear";
@@ -535,43 +783,43 @@ text_sensor:
 #          text: !lambda |-
 #              return id(inside_humidity).state;
               
-  - platform: homeassistant
-    id: buienradar_condition_1
-    entity_id: sensor.buienradar_detailed_condition_1d
-  # Sun horizon sensor from Home Assistant #
-    on_value:
-      - lvgl.label.update:
-          id: condition_label
-          text: !lambda |-
-              std::string state = id(buienradar_condition_1).state.c_str(); {
-                  if (state == "clear_night") return "Clear Night";
-                  else if (state == "cloudy") return "Cloudy";
-                  else if (state == "clear") return "Clear";
-                  else if (state == "fog") return "Foggy";
-                  else if (state == "hail") return "Hail";
-                  else if (state == "lightning") return "Stormy";
-                  else if (state == "lightning-rainy") return "Stormy Rain";
-                  else if (state == "partlycloudy") return "Bit Cloudy";
-                  else if (state == "partlycloudy-fog") return "Bit Foggy";
-                  else if (state == "partlycloudy-light-rain") return "Bit Rainy";
-                  else if (state == "partlycloudy-rain") return "Bit Rainy";
-                  else if (state == "partlycloudy-light-snow") return "Bit Snowy";
-                  else if (state == "partlycloudy-snow") return "Bit Snowy";
-                  else if (state == "partlycloudy-lightning") return "Bit Stormy";
-                  else if (state == "pouring") return "Pouring";
-                  else if (state == "rainy") return "Rainy";
-                  else if (state == "light-rain") return "Light Rain";
-                  else if (state == "snowy") return "Snowy";
-                  else if (state == "light-snow") return "Bit Snowy";
-                  else if (state == "snowy-rainy") return "Slushy";
-                  else if (state == "sunny") return "Sunny";
-                  else if (state == "windy") return "Windy";
-                  else if (state == "windy_variant") return "Gales";
-                  else if (state == "exceptional") return "Nightmareish";
+  # - platform: homeassistant
+  #   id: buienradar_condition_1
+  #   entity_id: sensor.buienradar_detailed_condition_1d
+  # # Sun horizon sensor from Home Assistant #
+  #   on_value:
+  #     - lvgl.label.update:
+  #         id: condition_label
+  #         text: !lambda |-
+  #             std::string state = id(buienradar_condition_1).state.c_str(); {
+  #                 if (state == "clear_night") return "Clear Night";
+  #                 else if (state == "cloudy") return "Cloudy";
+  #                 else if (state == "clear") return "Clear";
+  #                 else if (state == "fog") return "Foggy";
+  #                 else if (state == "hail") return "Hail";
+  #                 else if (state == "lightning") return "Stormy";
+  #                 else if (state == "lightning-rainy") return "Stormy Rain";
+  #                 else if (state == "partlycloudy") return "Bit Cloudy";
+  #                 else if (state == "partlycloudy-fog") return "Bit Foggy";
+  #                 else if (state == "partlycloudy-light-rain") return "Bit Rainy";
+  #                 else if (state == "partlycloudy-rain") return "Bit Rainy";
+  #                 else if (state == "partlycloudy-light-snow") return "Bit Snowy";
+  #                 else if (state == "partlycloudy-snow") return "Bit Snowy";
+  #                 else if (state == "partlycloudy-lightning") return "Bit Stormy";
+  #                 else if (state == "pouring") return "Pouring";
+  #                 else if (state == "rainy") return "Rainy";
+  #                 else if (state == "light-rain") return "Light Rain";
+  #                 else if (state == "snowy") return "Snowy";
+  #                 else if (state == "light-snow") return "Bit Snowy";
+  #                 else if (state == "snowy-rainy") return "Slushy";
+  #                 else if (state == "sunny") return "Sunny";
+  #                 else if (state == "windy") return "Windy";
+  #                 else if (state == "windy_variant") return "Gales";
+  #                 else if (state == "exceptional") return "Nightmareish";
 
                   
-                  return state;
-              }
+  #                 return state;
+  #             }
 
   - platform: homeassistant
     id: sun_state
@@ -795,13 +1043,35 @@ binary_sensor:
               checked: !lambda return x;
 
   - platform: homeassistant
-    id: wled_light
-    entity_id: light.wled
+    id: wled_fireplace
+    entity_id: light.wled_workshop_main
     publish_initial_state: true
     on_state:
       then:
         - lvgl.widget.update:
-            id: wled_light_btn
+            id: wled_workshop_main_btn
+            state:
+              checked: !lambda return x;
+
+  - platform: homeassistant
+    id: wled_workshop
+    entity_id: light.wled_main
+    publish_initial_state: true
+    on_state:
+      then:
+        - lvgl.widget.update:
+            id: wled_main_btn
+            state:
+              checked: !lambda return x;
+
+  - platform: homeassistant
+    id: wled_ikea
+    entity_id: light.wled_fireplace_main
+    publish_initial_state: true
+    on_state:
+      then:
+        - lvgl.widget.update:
+            id: wled_fireplace_main_btn
             state:
               checked: !lambda return x;
 
@@ -813,6 +1083,17 @@ binary_sensor:
       then:
         - lvgl.widget.update:
             id: deathstar_light_btn
+            state:
+              checked: !lambda return x;
+
+  - platform: homeassistant
+    id: benchpsu_switch
+    entity_id: switch.benchpsu_main_power
+    publish_initial_state: true
+    on_state:
+      then:
+        - lvgl.widget.update:
+            id: benchpsu_btn
             state:
               checked: !lambda return x;
 

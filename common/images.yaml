@@ -408,12 +408,19 @@ image:
 - file: "images/backgrounds/pinkwash.png"
   id: pinkwash
   type: RGB565
+- file: "images/backgrounds/pinkcurve.png"
+  id: pinkcurve
+  type: RGB565
+- file: "images/backgrounds/lighthouse.png"
+  id: lighthouse
+  type: RGB565
 - file: "images/villalogo.png"
   id: villalogo
   type: RGB565
 - file: "images/ajaxlogo.png"
   id: ajaxlogo
   type: RGB565
+
 #online_image:
 #  - url: "https://a.espncdn.com/i/teamlogos/soccer/500/362.png"
 #    format: png

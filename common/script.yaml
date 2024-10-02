@@ -30,3 +30,97 @@
         text: !lambda |-
           static const char * const day_names[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
           return day_names[id(esptime).now().day_of_week-1];
+
+- id: weather_update
+  then:
+    - lvgl.label.update:
+        id: current_weather_icon
+        text: !lambda |-
+          std::map<std::string, std::string> weather_icon_map
+            {
+              {"cloudy", "\U000F0590"},
+              {"clear", "\U000F0599"},
+              {"sunny", "\U000F0599"},
+              {"cloudy-alert", "\U000F0F2F"},
+              {"cloudy-arrow-right", "\U000F0E6E"},
+              {"fog", "\U000F0591"},
+              {"hail", "\U000F0592"},
+              {"hazy", "\U000F0F30"},
+              {"hurricane", "\U000F0898"},
+              {"lightning", "\U000F0593"},
+              {"lightning-rainy", "\U000F067E"},
+              {"clear-night", "\U000F0594"},
+              {"night-partly-cloudy", "U000F0F31"},
+              {"partlycloudy", "\U000F0595"},
+              {"partlycloudy-fog", "\U000F0591"},
+              {"partlycloudy-lightning", "\U000F0F32"},
+              {"partlycloudy-rain", "\U000F0F33"},
+              {"partlycloudy-light-rain", "\U000F0F33"},              
+              {"partlycloudy-snow", "\U000F0F34"},
+              {"snowy-rainy", "\U000F067F"},
+              {"pouring", "\U000F0596"},
+              {"rainy", "\U000F0597"},
+              {"light-rain", "\U000F0597"},
+              {"snowy", "\U000F0598"},
+              {"light-snow", "\U000F0598"},
+              {"partlycloudy-light-snow", "\U000F0598"},
+              {"snowy-heavy", "\U000F0F36"},
+              {"snowy-rainy", "\U000F067F"},
+              {"sunny", "\U000F0599"},
+              {"sunny-alert", "\U000F0F37"},
+              {"sunny-off", "\U000F14E4"},
+              {"sunset", "\U000F059A"},
+              {"sunset-down", "\U000F059B"},
+              {"sunset-up", "\U000F059C"},
+              {"tornado", "\U000F0F38"},
+              {"windy", "\U000F059D"},
+              {"windy-variant", "\U000F059E"},
+            };
+          return weather_icon_map[id(weather_now).state.c_str()].c_str();
+
+- id: weather_update_1d
+  then:
+    - lvgl.label.update:
+        id: current_weather_icon_1d
+        text: !lambda |-
+          std::map<std::string, std::string> weather_icon_map
+            {
+              {"cloudy", "\U000F0590"},
+              {"clear", "\U000F0599"},
+              {"sunny", "\U000F0599"},
+              {"cloudy-alert", "\U000F0F2F"},
+              {"cloudy-arrow-right", "\U000F0E6E"},
+              {"fog", "\U000F0591"},
+              {"hail", "\U000F0592"},
+              {"hazy", "\U000F0F30"},
+              {"hurricane", "\U000F0898"},
+              {"lightning", "\U000F0593"},
+              {"lightning-rainy", "\U000F067E"},
+              {"clear-night", "\U000F0594"},
+              {"night-partly-cloudy", "U000F0F31"},
+              {"partlycloudy", "\U000F0595"},
+              {"partlycloudy-fog", "\U000F0591"},
+              {"partlycloudy-lightning", "\U000F0F32"},
+              {"partlycloudy-rain", "\U000F0F33"},
+              {"partlycloudy-light-rain", "\U000F0F33"},              
+              {"partlycloudy-snow", "\U000F0F34"},
+              {"snowy-rainy", "\U000F067F"},
+              {"pouring", "\U000F0596"},
+              {"rainy", "\U000F0597"},
+              {"light-rain", "\U000F0597"},
+              {"snowy", "\U000F0598"},
+              {"light-snow", "\U000F0598"},
+              {"partlycloudy-light-snow", "\U000F0598"},
+              {"snowy-heavy", "\U000F0F36"},
+              {"snowy-rainy", "\U000F067F"},
+              {"sunny", "\U000F0599"},
+              {"sunny-alert", "\U000F0F37"},
+              {"sunny-off", "\U000F14E4"},
+              {"sunset", "\U000F059A"},
+              {"sunset-down", "\U000F059B"},
+              {"sunset-up", "\U000F059C"},
+              {"tornado", "\U000F0F38"},
+              {"windy", "\U000F059D"},
+              {"windy-variant", "\U000F059E"},
+            };
+          return weather_icon_map[id(weather_now_1d).state.c_str()].c_str();
