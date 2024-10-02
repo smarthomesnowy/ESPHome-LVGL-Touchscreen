@@ -1,9 +1,14 @@
-# ESPHome-LVGL-Touchscreen
+# ESPHome LVGL Touchscreen
+![2024-10-02 07_32_55-Window](https://github.com/user-attachments/assets/9f774921-8fe4-4fee-a19e-3b3520effec9) ![2024-10-02 07_24_13-Window](https://github.com/user-attachments/assets/3b58b561-aa74-425a-adb5-47c098e926d3)
 
+
+![2024-10-02 07_37_36-Window](https://github.com/user-attachments/assets/71bd0967-6d5f-4aab-9a8d-e1312e63cfd2) ![2024-10-02 07_38_02-Window](https://github.com/user-attachments/assets/7e8aeb05-aed6-4fc1-8766-1c2907d0670a)
 
 ## Idea
 ESPHome 2024.8.0 included the LVGL graphics library which allows for much better styling options for ESPHome displays.
+
 Clyde Barrow has but a LOT of work into making this work and Nagyrobi testing and making the documentation for it.
+
 In a bid to get ahead of the curve I was testing LVGL in beta so I could get a good handle of what was going on with it from the start.
 I am using this project to document the steps needed to make a LVGL display and to do it in a smart way that should help others.
 
@@ -120,7 +125,8 @@ I have the idea to make a vintage desktop PC and monitor to house everything in.
 
 ## Conclusion
 
-This is my most complicated device so far and after using it for a while I can see some additions I could make such as making an "alarm" on the display and LED ring for certain triggers.
-I am very happy with this project and will convert the other two clocks when the display boards arrive.
+Having lived with the display for a few days I am now very happy with it, yes I can see a few things that are not perfectly aligned, out by a few pixels but that can always be tweaked later.
+I am super impressed with LVGL as a whole - Thank you Clive and Nagyrobi! for all the hard work in making this happen on ESPHome, it is a perfect addition to the eco system.
+
 
 
