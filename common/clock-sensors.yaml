@@ -27,16 +27,6 @@ sensor:
               }
               return lv_color_hex(0x00FF00);
 
-#  - platform: homeassistant
-#    id: average_temperature
-#    entity_id: sensor.average_inside_humidity
-#    on_value:
-#      - lvgl.label.update:
-#          id: average_insidehumidity_label
-#          text:
-#            format: "%.0f%%"
-#            args: [x]
-
   - platform: homeassistant
     id: shelf_temperature
     entity_id: sensor.shelf_sensors_temperature
@@ -103,9 +93,7 @@ sensor:
 #                      WEATHER                       #
 #                                                    #
 ######################################################
-#  - platform: homeassistant
-#    id: buienradar_temp
-#    entity_id: sensor.buienradar_feel_temperature
+
   # Weather temperature
   - platform: homeassistant
     id: outside_temp
@@ -115,7 +103,7 @@ sensor:
           id:
             -  outside_temp_label
             -  outside_temp_wp_label
-#            -  outside_temp_wp_big_label
+
           text:
             format: "%.0f°C"
             args: [x]
@@ -130,47 +118,6 @@ sensor:
               return lv_color_hex(0xd42323);
               }
               return lv_color_hex(0x00FF00);
-
-#   - platform: homeassistant
-#     id: ground_temp
-#     entity_id: sensor.buienradar_ground_temperature # Change the entity from your Home Assistant
-#     on_value:
-#       - lvgl.label.update:
-#           id:
-#             -  ground_temp_label
-# #            -  outside_temp_wp_label
-# #            -  outside_temp_wp_big_label
-#           text:
-#             format: "%.0f°C"
-#             args: [x]
-#           text_color: !lambda |-
-#               if (id(ground_temp).state > -10 && id(ground_temp).state < 0) {
-#               return lv_color_hex(0x00FF00);
-#               } else if (id(ground_temp).state > 1 && id(ground_temp).state < 15) {
-#               return lv_color_hex(0x066ccb);
-#               } else if (id(ground_temp).state > 16 && id(ground_temp).state < 23) {
-#               return lv_color_hex(0x54f30a);
-#               } else if (id(ground_temp).state > 23 && id(outside_temp).state < 35) {
-#               return lv_color_hex(0xd42323);
-#               }
-#               return lv_color_hex(0x00FF00);
-
-
-
-  # - platform: homeassistant
-  #   id: buienradar_wind
-  #   entity_id: sensor.buienradar_wind_speed
-  #   on_value:
-  #     - lvgl.label.update:
-  #         id: buienradar_wind_label
-
-  # - platform: homeassistant
-  #   id: buienradar_gust
-  #   entity_id: sensor.buienradar_wind_gust    
-  #   on_value:
-  #     - lvgl.label.update:
-  #         id: buienradar_gust_label
-
   - platform: homeassistant
     id: buienradar_irradiance
     entity_id: sensor.buienradar_irradiance
@@ -210,20 +157,6 @@ sensor:
           text:
             format: "%.1fmm"
             args: [x]
-     
-  # - platform: homeassistant
-  #   id: buienradar_minimum_temperature_1d
-  #   entity_id: sensor.buienradar_minimum_temperature_1d
-  #   on_value:
-  #     - lvgl.label.update:
-  #         id: buienradar_minimum_temperature_1d_label
-
-  # - platform: homeassistant
-  #   id: buienradar_wind_speed_1d
-  #   entity_id: sensor.buienradar_wind_speed_1d
-  #   on_value:
-  #     - lvgl.label.update:
-  #         id: buienradar_wind_speed_1d_label
 
   - platform: homeassistant
     id: buienradar_temperature_1d
@@ -277,41 +210,6 @@ sensor:
             format: "%.0f%%"
             args: [x]
 
-#  - platform: homeassistant
-#   id: housecon1_temp
-#    entity_id: sensor.housecon1_temperature
-
-######################################################
-#                      BEAST                         #
-#                                                    #
-######################################################
-#  - platform: homeassistant
-#    id: beast_cpuload
-#    entity_id: sensor.beast_cpuload
-
-#  - platform: homeassistant
-#    id: beast_gpuload
-#    entity_id: sensor.beast_gpuload
-
-#  - platform: homeassistant
-#    id: beast_gputemperature
-#    entity_id: sensor.beast_gputemperature
-
-#  - platform: internal_temperature
-#    name: "CPU Temp"             
-
-#  - platform: debug
-#    free:
-#      name: "Heap Free"
-    #fragmentation:
-    #  name: "Heap Fragmentation"
-#    block:
-#      name: "Heap Max Block"
-#    loop_time:
-#      name: "Loop Time"
-#    psram:
-#      name: "Free PSRAM"
-
   - platform: homeassistant
     id: media_player_volume
     entity_id: media_player.denon_avr_x2000
@@ -320,26 +218,6 @@ sensor:
       - lvgl.slider.update:
           id: slider_media_player
           value: !lambda return (x * 100);
-
-#  - platform: homeassistant
-#    id: media_player_mute
-#    entity_id: media_player.denon_avr_x2000
-#    attribute: volume_level
-#    on_value:
-#      - homeassistant.action:
-#          action: media_player.volume_mute
-#          data:
-#            entity_id: media_player.denon_avr_x2000
-#            volume_level: "0"
-
-#  - platform: homeassistant
-#    entity_id: sensor.average_inside_temperature
-#    id: average_temperature_tile_sensor
-#    on_value:
-#      - lvgl.label.update:
-#          id: average_temperature_tile
-#          text: !lambda return str_sprintf("%.1f°C", x);
-  # WI-FI Signal
 
   - platform: wifi_signal
     id: wifi_signal_percent
@@ -367,7 +245,6 @@ sensor:
               return "${wifi_100}";
               }
               return "${wifi_100}";
-
 
   - platform: homeassistant
     id: all_lights_brightness
@@ -554,12 +431,6 @@ text_sensor:
             -  ajax_fixture_mp_label
           text: !lambda |-
               return id(ajax_fixture).state;
-#    on_value:
-#      - lvgl.label.update:
-#          id: ajax_fixture_label
-#          text: !lambda |-
-#              return id(ajax_fixture).state;
-
 
   - platform: homeassistant
     entity_id: calendar.ajax_fixtures
@@ -585,8 +456,6 @@ text_sensor:
           id:
             -  ajax_matchtime_label
             -  ajax_matchtime_mp_label
-#          text: !lambda |-
-#              return id(ajax_matchtime).state;
           text: !lambda |-
             if (id(ajax_matchtime).state == "") {
             return "Game On!";
@@ -753,73 +622,6 @@ text_sensor:
                   
                   return state;
               }
-#    on_value:
-#      - lvgl.label.update:
-#          id: condition_label
-#          text: !lambda |-
-# #             return id(buienradar_condition).state;
-#  - platform: homeassistant
-#    id: buienradar_humidity
-#    entity_id: sensor.buienradar_humidity
-#    on_value:
-#      - lvgl.label.update:
-#          id: outhumidity_label
-#          text: !lambda |-
-#              return id(buienradar_humidity).state;
-
-#  - platform: homeassistant
-#    id: inside_humidity
-#    entity_id: sensor.average_inside_humidity
-#    on_value:
-#      - lvgl.label.update:
-#          id: outside_temp_label
-#          text:
-#            format: "%.0f"
-#            args: [x]
-
-#    on_value:
-#      - lvgl.label.update:
-#          id: average_inside_humidity_label
-#          text: !lambda |-
-#              return id(inside_humidity).state;
-              
-  # - platform: homeassistant
-  #   id: buienradar_condition_1
-  #   entity_id: sensor.buienradar_detailed_condition_1d
-  # # Sun horizon sensor from Home Assistant #
-  #   on_value:
-  #     - lvgl.label.update:
-  #         id: condition_label
-  #         text: !lambda |-
-  #             std::string state = id(buienradar_condition_1).state.c_str(); {
-  #                 if (state == "clear_night") return "Clear Night";
-  #                 else if (state == "cloudy") return "Cloudy";
-  #                 else if (state == "clear") return "Clear";
-  #                 else if (state == "fog") return "Foggy";
-  #                 else if (state == "hail") return "Hail";
-  #                 else if (state == "lightning") return "Stormy";
-  #                 else if (state == "lightning-rainy") return "Stormy Rain";
-  #                 else if (state == "partlycloudy") return "Bit Cloudy";
-  #                 else if (state == "partlycloudy-fog") return "Bit Foggy";
-  #                 else if (state == "partlycloudy-light-rain") return "Bit Rainy";
-  #                 else if (state == "partlycloudy-rain") return "Bit Rainy";
-  #                 else if (state == "partlycloudy-light-snow") return "Bit Snowy";
-  #                 else if (state == "partlycloudy-snow") return "Bit Snowy";
-  #                 else if (state == "partlycloudy-lightning") return "Bit Stormy";
-  #                 else if (state == "pouring") return "Pouring";
-  #                 else if (state == "rainy") return "Rainy";
-  #                 else if (state == "light-rain") return "Light Rain";
-  #                 else if (state == "snowy") return "Snowy";
-  #                 else if (state == "light-snow") return "Bit Snowy";
-  #                 else if (state == "snowy-rainy") return "Slushy";
-  #                 else if (state == "sunny") return "Sunny";
-  #                 else if (state == "windy") return "Windy";
-  #                 else if (state == "windy_variant") return "Gales";
-  #                 else if (state == "exceptional") return "Nightmareish";
-
-                  
-  #                 return state;
-  #             }
 
   - platform: homeassistant
     id: sun_state
@@ -975,49 +777,6 @@ text_sensor:
       return  { str };
     update_interval: 30s
     icon: mdi:clock-outline
-
-#  - platform: homeassistant
-#    id: sensor_motion_bedroom
-#    entity_id: binary_sensor.bigbutton_motion_sensor_2 # Change the entity from your Home Assistant
-#    on_value:
-#      then:
-#        - lvgl.label.update:
-#            id: motion_bedroom_label
-#            text_color: !lambda |-
-#              if (id(sensor_motion_bedroom).state == "on") {
-#              return lv_color_hex(0xf50796);
-#              }
-#              return lv_color_hex(0x05CDDA);
-
-#  - platform: homeassistant
-#    id: sensor_motion_livingroom
-#    entity_id: binary_sensor.living_room_motion_sensor # Change the entity from your Home Assistant
-#    on_value:
-#      then:
-#        - lvgl.label.update:
-#            id: motion_livingroom_label
-#            text_color: !lambda |-
-#              if (id(sensor_motion_livingroom).state == "on") {
-#              return lv_color_hex(0xf50796);
-#              }
-#              return lv_color_hex(0x05CDDA);
-
-
-#  - platform: homeassistant
-#    id: sensor_motion_workshop
-#    entity_id: binary_sensor.workshop_sensors_motion_sensor # Change the entity from your Home Assistant
-#    on_value:
-#      then:
-#        - lvgl.label.update:
-#            id: motion_workshop_label
-#            text_color: !lambda |-
-#              if (id(sensor_motion_workshop).state == "on") {
-#              return lv_color_hex(0xf50796);
-#              }
-#             return lv_color_hex(0x05CDDA);
-
-
-
 
 binary_sensor:
   - platform: homeassistant
