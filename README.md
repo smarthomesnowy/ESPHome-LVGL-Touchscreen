@@ -1,5 +1,9 @@
 # ESPHome LVGL Touchscreen
 ![2024-10-02 07_32_55-Window](https://github.com/user-attachments/assets/9f774921-8fe4-4fee-a19e-3b3520effec9) ![2024-10-02 07_24_13-Window](https://github.com/user-attachments/assets/3b58b561-aa74-425a-adb5-47c098e926d3)
+
+
+![2024-10-02 07_37_36-Window](https://github.com/user-attachments/assets/71bd0967-6d5f-4aab-9a8d-e1312e63cfd2) ![2024-10-02 07_38_02-Window](https://github.com/user-attachments/assets/7e8aeb05-aed6-4fc1-8766-1c2907d0670a)
+
 ## Idea
 ESPHome 2024.8.0 included the LVGL graphics library which allows for much better styling options for ESPHome displays.
 
