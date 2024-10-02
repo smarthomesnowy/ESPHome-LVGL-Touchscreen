@@ -1,9 +1,10 @@
 # ESPHome LVGL Touchscreen
-![2024-10-02 07_32_55-Window](https://github.com/user-attachments/assets/9f774921-8fe4-4fee-a19e-3b3520effec9)
+![2024-10-02 07_32_55-Window](https://github.com/user-attachments/assets/9f774921-8fe4-4fee-a19e-3b3520effec9) ![2024-10-02 07_24_13-Window](https://github.com/user-attachments/assets/3b58b561-aa74-425a-adb5-47c098e926d3)
 ## Idea
 ESPHome 2024.8.0 included the LVGL graphics library which allows for much better styling options for ESPHome displays.
 
 Clyde Barrow has but a LOT of work into making this work and Nagyrobi testing and making the documentation for it.
+
 In a bid to get ahead of the curve I was testing LVGL in beta so I could get a good handle of what was going on with it from the start.
 I am using this project to document the steps needed to make a LVGL display and to do it in a smart way that should help others.
 
